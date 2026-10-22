@@ -1,0 +1,16 @@
+name: ta_la_engine
+description: >-
+  Luật chơi Tá lả (Phỏm) viết bằng Dart thuần, dùng chung cho app Flutter
+  và server trọng tài.
+version: 0.1.0
+publish_to: none
+
+environment:
+  sdk: ^3.9.0
+
+dependencies:
+  meta: ^1.16.0
+
+dev_dependencies:
+  test: ^1.26.0
+  very_good_analysis: ^10.3.0

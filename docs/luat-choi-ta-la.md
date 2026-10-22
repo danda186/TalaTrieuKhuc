@@ -97,9 +97,10 @@ Khi lá của người **V** bị ăn, hàng bài đánh của V bị hụt 1 l�
   và cũng là người sẽ **hạ đầu tiên**. Người mất lá sẽ phải đánh thêm 1 lượt (dùng lá
   thừa trong nọc do người ăn không bốc).
 - Nếu V chính là người đánh đầu vòng thì không cần chuyển.
-- **Ăn chốt ở vòng 4:** người đánh đầu vòng 4 có thể **đã hạ bài**. Khi bị chuyển mất 1 lá,
-  nhà đó **được quay lại đánh tiếp** thêm 1 lượt: bốc (hoặc ăn nếu hợp lệ), được hạ thêm
-  phỏm / gửi bài, rồi đánh 1 lá. Nếu nhà đó **Ù** ở lượt này → **người ăn chốt đền làng** (mục 6).
+- **Ăn chốt ở vòng 4:** người đánh đầu vòng 4 có thể **đã hạ bài**. Khi bị chuyển mất 1 lá
+  (hoặc chính cây chốt của họ bị ăn), nhà đó **được quay lại đánh tiếp** thêm 1 lượt: bốc
+  (hoặc ăn nếu hợp lệ), được hạ thêm phỏm / gửi bài, rồi đánh 1 lá. Lá ăn trong lượt quay lại
+  phải được hạ luôn. Nếu nhà đó **Ù** ở lượt này → **người ăn chốt đền làng** (mục 6).
 
 > **Cách cài đặt đơn giản:** engine chỉ cần theo dõi `soLaDaDanh[player]`. Bất biến cần giữ:
 > đi theo thứ tự lượt bắt đầu từ người đánh đầu vòng, số lá đã đánh **không tăng** và các
@@ -149,7 +150,7 @@ Có thể Ù **bất cứ lúc nào đến lượt** (sau khi bốc hoặc ăn),
 | **Ù thường** | Sau khi bốc/ăn có 10 lá: 9 lá thành phỏm, đánh lá còn lại ra (0 điểm rác). |
 | **Ù tròn** | Cả **10 lá** đều thành phỏm (không còn lá nào để đánh). |
 | **Ù gửi** | Khi hạ bài: hạ phỏm của mình, **gửi** các lá còn lại vào phỏm nhà đã hạ trước, đánh lá cuối mà **không còn lá rác**. Áp dụng cả với lượt quay lại của nhà đã hạ (mục 4.4). |
-| **Ù khan** | Ngay sau khi chia, **9 lá** trên tay **không có cạ nào** (không có 2 lá nào có cơ hội ghép thành phỏm). Báo ngay, trước lượt đầu. |
+| **Ù khan** | Ngay sau khi chia, **9 lá** trên tay **không có cạ nào** (không có 2 lá nào có cơ hội ghép thành phỏm). Báo được cho tới trước thao tác đầu tiên của mình (bốc / ăn / đánh). |
 | **Ù khan tròn** | Ngay sau khi chia, **10 lá** trên tay **không có cạ nào** (người đi đầu). |
 | **Ù đền** | (a) Ù do **ăn cây thứ 3** → người **đánh ra** cây thứ 3 đó phải **đền làng** (trả thay phần của cả 3 nhà). Áp dụng cả khi tắt điểm ăn cây thường. <br>(b) Một người **ăn chốt** khiến nhà đã hạ bài được quay lại đánh tiếp (mục 4.4), và nhà đó **Ù** → **người ăn chốt** đền làng (không phải người mất chốt). |
 
@@ -262,6 +263,8 @@ Ghế: **A** (đi đầu, 10 lá) → **B** → **C** → **D**.
 
 ## 9. Ghi chú cho việc cài đặt (Flutter + online 4 người)
 
+- **Engine luật đã có:** package Dart thuần `packages/ta_la_engine` cài đặt toàn bộ luật ở tài
+  liệu này (kèm unit test theo các ví dụ mục 7.4 và mô phỏng 3000 ván ngẫu nhiên).
 - **Server là trọng tài (authoritative):** xáo bài, giữ nọc, kiểm tra hợp lệ ăn/đánh/hạ/Ù
   phải chạy ở server (Cloud Functions / server Dart / Node…). Client chỉ gửi *ý định*
   (`AN`, `BOC`, `DANH(card)`, `HA(phỏm[], gửi[])`, `U`), không bao giờ nhận bài của người khác.
