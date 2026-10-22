@@ -120,12 +120,11 @@ chốt gọi là **ăn chốt** — có giá trị cao hơn ăn thường (xem m
   (ít điểm rác nhất), nhưng vẫn cho người chơi chọn (có chiến thuật giữ lá để gửi).
 
 ### 5.2 Gửi bài
-- Khi hạ, người chơi được **gửi** lá rác của mình vào **phỏm đã hạ của người hạ trước**
+- Khi hạ, người chơi được **gửi** lá rác của mình vào phỏm của **tất cả các nhà đã hạ trước mình**
   để giảm điểm (VD: người trước hạ `5♥ 6♥ 7♥`, mình gửi `8♥`; hoặc gửi `7♣` vào bộ `7♠ 7♥ 7♦`).
 - Người hạ **đầu tiên** không có phỏm nào để gửi.
 - Lá đã gửi coi như hết, không tính điểm.
-- **[Biến thể]** có nơi chỉ cho gửi vào phỏm của người hạ **ngay trước**; có nơi cho gửi
-  vào cả phỏm của chính mình đã hạ.
+- Được gửi nhiều lá, vào nhiều phỏm của nhiều nhà khác nhau.
 
 ### 5.3 Móm (cháy)
 Người hạ mà **không có phỏm nào** → **Móm**. Người móm luôn xếp **cuối** bất kể điểm.
@@ -137,47 +136,89 @@ Người hạ mà **không có phỏm nào** → **Móm**. Người móm luôn x
 **Ù** = toàn bộ bài trên tay xếp được thành phỏm, kết thúc ván ngay, người Ù thắng.
 Có thể Ù **bất cứ lúc nào đến lượt** (sau khi bốc hoặc ăn), không cần chờ vòng 4.
 
-| Loại | Điều kiện (luật chuẩn của app) |
+| Loại | Điều kiện |
 |---|---|
 | **Ù thường** | Sau khi bốc/ăn có 10 lá: 9 lá thành phỏm, đánh lá còn lại ra (0 điểm rác). |
 | **Ù tròn** | Cả **10 lá** đều thành phỏm (không còn lá nào để đánh). |
-| **Ù khan** | Ngay sau khi chia, trên tay **không có cạ nào và không có phỏm nào** (mọi cặp lá đều không thể ghép phỏm). Báo Ù khan trước lượt đầu. **[Biến thể]** nhiều nơi không chơi Ù khan. |
-| **Ù đền** | Người Ù nhờ **ăn đủ 3 lá của cùng một người**, hoặc nhờ **ăn chốt** của một người → người bị ăn đó phải **đền làng** (trả thay phần của cả bàn). |
+| **Ù khan** | Ngay sau khi chia, **9 lá** trên tay **không có cạ nào** (không có 2 lá nào có cơ hội ghép thành phỏm). Báo ngay, trước lượt đầu. |
+| **Ù khan tròn** | Ngay sau khi chia, **10 lá** trên tay **không có cạ nào** (người đi đầu). |
+| **Ù đền** | Ù do **ăn cây thứ 3** → người đánh ra cây thứ 3 đó phải **đền làng** (trả thay phần của cả 3 nhà). Ù do **ăn cây chốt** → người mất chốt đền. |
 
+- **Kiểm tra "không có cạ":** với mọi cặp lá `x, y` trên tay: không cùng số, và nếu cùng chất
+  thì chênh lệch giá trị > 2. Chỉ cần 1 cặp vi phạm là không khan.
+- **Ăn cây thứ 3 luôn dẫn tới Ù:** mỗi phỏm chỉ chứa 1 lá ăn, nên 3 lá ăn = 3 phỏm ≥ 9 lá
+  trên tay 10 lá → còn tối đa 1 lá để đánh.
 - **[Biến thể]** "Ù gửi": tính Ù nếu sau khi gửi bài không còn rác. Mặc định app **không** tính.
 - Khi một người Ù, những người khác **không hạ**, không xếp hạng; chỉ trả điểm Ù.
+  Các khoản ăn cây đã phát sinh trước đó **vẫn giữ nguyên**.
 
 ---
 
-## 7. Tính điểm và xếp hạng
+## 7. Tính điểm
 
-### 7.1 Kết thúc ván bình thường (không ai Ù)
+### 7.1 Mức base (B)
+Khi tạo phòng, chủ phòng chọn:
+
+- **Mức base `B`** (VD: 5, 10, 20…). Mọi khoản điểm là **bội số của B**.
+- **Tính điểm ăn cây thường**: Bật / Tắt.
+
+### 7.2 Xếp hạng trong ván (khi không ai Ù)
 Sau khi người cuối cùng hạ và đánh lá chốt:
 
 1. Mỗi người tính **tổng điểm rác** (theo bảng giá trị mục 1).
 2. Xếp hạng **từ thấp đến cao**: **Nhất → Nhì → Ba → Bét**.
 3. Người **Móm** xếp sau tất cả người có phỏm. Nhiều người móm → cùng bậc Móm.
-4. **Bằng điểm:** người **hạ trước** xếp trên. **[Biến thể]**
+4. **Bằng điểm rác:** người **hạ trước** xếp trên.
 
-### 7.2 Bảng điểm đề xuất (đơn vị = 1 "mức cược", app quy ra điểm)
+### 7.3 Bảng điểm theo base
 
-| Tình huống | Ai trả | Trả cho ai | Mức |
-|---|---|---|---|
-| Về Nhì | Nhì | Nhất | 1 |
-| Về Ba | Ba | Nhất | 2 |
-| Về Bét | Bét | Nhất | 3 |
-| Móm | Người móm | Nhất | 4 |
-| Bị ăn lá thường (vòng 1–3) | Người bị ăn | Người ăn | 1 / lá |
-| Bị ăn chốt (vòng 4) | Người bị ăn | Người ăn | 4 / lá |
-| Ù (thường / tròn / khan) | Mỗi người còn lại | Người Ù | 5 |
-| Ù đền | Người đền (trả thay cả làng) | Người Ù | 5 × 3 = 15 |
+| Khoản | Ai trừ | Ai cộng | Hệ số | B = 5 | B = 10 |
+|---|---|---|---|---|---|
+| Về Nhì | Nhì | Nhất | −1B | −5 | −10 |
+| Về Ba | Ba | Nhất | −2B | −10 | −20 |
+| Về Bét | Bét | Nhất | −3B | −15 | −30 |
+| Móm *(cần chốt)* | Người móm | Nhất | −4B | −20 | −40 |
+| **Nhất** | | | **+ tổng các nhà trả** (bình thường 1B+2B+3B = **+6B**) | +30 | +60 |
+| Ăn cây chốt (luôn tính) | Người mất chốt | Người ăn | ±4B | ±20 | ±40 |
+| Ăn cây thường thứ 1 *(nếu bật)* | Người bị ăn | Người ăn | ±1B | ±5 | ±10 |
+| Ăn cây thường thứ 2 *(nếu bật)* | Người bị ăn | Người ăn | ±2B | ±10 | ±20 |
+| Ăn cây thường thứ 3 *(nếu bật)* | Người bị ăn | Người ăn | ±3B | ±15 | ±30 |
+| Ù thường | Mỗi nhà | Người Ù | −5B / nhà (Ù +15B) | −25 / +75 | −50 / +150 |
+| Ù tròn | Mỗi nhà | Người Ù | −10B / nhà (Ù +30B) | −50 / +150 | −100 / +300 |
+| Ù khan *(cần chốt, tạm = Ù thường)* | Mỗi nhà | Người Ù | −5B / nhà | −25 | −50 |
+| Ù khan tròn *(cần chốt, tạm = Ù tròn)* | Mỗi nhà | Người Ù | −10B / nhà | −50 | −100 |
+| Ù đền | Người đền (trả cả 3 phần) | Người Ù | 3 × mức Ù tương ứng | −75 (Ù thường) | −150 |
 
 Ghi chú:
-- Điểm ăn bài được tính **ngay khi ăn** và vẫn giữ nguyên dù ván kết thúc thế nào.
-- Ù đền: hai người còn lại **không mất gì**.
-- **[Biến thể]** Ù tròn / Ù khan nhiều nơi tính gấp đôi (10); ăn lá thứ 1/2/3 tăng dần
-  (1/2/3); ăn chốt 2 hoặc 4. → Đưa các con số này vào **cấu hình phòng**.
-- Tổng điểm mỗi ván luôn bằng 0 (zero-sum) → dễ kiểm tra lỗi.
+- "Cây thứ k" là thứ tự lá ăn **của người ăn** trong ván (lá ăn đầu tiên, thứ hai, thứ ba).
+- Điểm ăn cây được ghi **ngay khi ăn** và không bị huỷ dù ván kết thúc thế nào.
+- Ù đền: hai nhà còn lại **không bị trừ** phần Ù.
+- Tổng điểm mọi khoản trong một ván **luôn bằng 0**.
+
+### 7.4 Ví dụ (B = 5, bật tính điểm ăn cây)
+
+**Ván thường:** B ăn 1 cây thường của A; D ăn cây chốt của C. Kết quả: B Nhất, D Nhì, A Ba, C Bét.
+
+| | A | B | C | D |
+|---|---|---|---|---|
+| Ăn cây | −5 | +5 | | |
+| Ăn chốt | | | −20 | +20 |
+| Xếp hạng | −10 | +30 | −15 | −5 |
+| **Cộng ván** | **−15** | **+35** | **−35** | **+15** |
+
+**Ván Ù đền:** D ăn cây thứ 1 của C, cây thứ 2 của A, cây thứ 3 của B → Ù. B đền.
+
+| | A | B | C | D |
+|---|---|---|---|---|
+| Ăn cây | −10 | −15 | −5 | +30 |
+| Ù đền | | −75 | | +75 |
+| **Cộng ván** | **−10** | **−90** | **−5** | **+105** |
+
+### 7.5 Bảng điểm phòng (cộng dồn nhiều ván)
+- Khi vào phòng, mọi người bắt đầu từ **0 điểm**.
+- Sau mỗi ván, cộng điểm ván vào tổng. **Tổng điểm của tất cả người chơi luôn = 0**
+  (engine phải assert điều này sau mỗi ván).
+- Bảng xếp hạng phòng sắp theo tổng điểm **giảm dần**: dương nhiều nhất đứng đầu.
 
 ---
 
@@ -185,7 +226,7 @@ Ghi chú:
 
 Ghế: **A** (đi đầu, 10 lá) → **B** → **C** → **D**.
 
-1. Vòng 1: A đánh `8♣`. B có `8♠ 8♦` → **ăn** `8♣`, bày ra, rồi đánh `K♥`. **B thu 1 điểm từ A**.
+1. Vòng 1: A đánh `8♣`. B có `8♠ 8♦` → **ăn** `8♣`, bày ra, rồi đánh `K♥`. Nếu bật tính điểm ăn cây: **B +1B, A −1B**.
    Hàng bài của A bị hụt, nhưng A là người đánh đầu vòng → không chuyển bài; **B thành người đánh đầu vòng**.
 2. C bốc, đánh `2♠`. D bốc, đánh `Q♦`. A bốc, đánh `J♣` (lá đầu tiên còn nằm trên hàng của A).
    Mỗi người đều có 1 lá trên hàng → vòng 2 bắt đầu từ B.
@@ -212,25 +253,37 @@ Ghế: **A** (đi đầu, 10 lá) → **B** → **C** → **D**.
 - **State machine ván:** `CHIA_BAI → (KIEM_TRA_U_KHAN) → LUOT[người]: CHON(ăn|bốc) → (U?) → (HA nếu vòng cuối) → DANH → … → KET_THUC → TINH_DIEM`.
 - **Xử lý mất kết nối / hết giờ lượt:** cần luật timeout (VD 20–30 giây), tự động bốc +
   đánh lá rác điểm cao nhất; khi hạ tự xếp phỏm tối ưu.
-- **Cấu hình phòng** nên chứa toàn bộ các mục [Biến thể] ở mục 10 để sau này linh hoạt.
+- **Cấu hình phòng:** `base`, `tinhDiemAnCayThuong`, thời gian lượt, cùng các mục còn mở ở mục 10.
+- **Bảng điểm:** lưu từng khoản (ăn cây, chốt, xếp hạng, Ù) theo ván để hiển thị lịch sử và kiểm tra tổng = 0.
 
 ---
 
-## 10. Các điểm cần nhóm chốt (biến thể)
+## 10. Quyết định luật
 
-| # | Câu hỏi | Mặc định đề xuất |
+### Đã chốt
+
+| # | Nội dung | Quyết định |
 |---|---|---|
-| 1 | Chiều đánh | Ngược chiều kim đồng hồ |
-| 2 | Có chơi **Ù khan** không? | Có |
-| 3 | Ù tròn / Ù khan có tính gấp đôi? | Không (đều 5) |
-| 4 | Mức tiền ăn lá thường / ăn chốt | 1 / 4 |
-| 5 | Mức Nhì / Ba / Bét / Móm | 1 / 2 / 3 / 4 |
-| 6 | Bằng điểm thì ai xếp trên | Người hạ trước |
-| 7 | Gửi bài vào phỏm của ai | Mọi người đã hạ trước mình |
-| 8 | Có tính "Ù gửi" | Không |
-| 9 | Bị ăn 3 lá (không dẫn tới Ù) có phải đền không | Không |
-| 10 | Phỏm có lá ăn có phải bày cả phỏm ngay khi ăn | Chỉ bày lá ăn |
-| 11 | Thời gian mỗi lượt | 25 giây |
+| 1 | Ù khan | **Có**, gồm Ù khan (9 lá) và **Ù khan tròn** (10 lá) ngay sau chia, không có cạ nào |
+| 2 | Mức điểm | Theo **base B** do phòng cài đặt (mục 7.3) |
+| 3 | Điểm ăn cây thường | **Tuỳ chọn** bật/tắt; bật thì cây 1/2/3 = 1B/2B/3B |
+| 4 | Gửi bài | Được gửi vào phỏm của **tất cả nhà đã hạ trước mình** |
+| 5 | Tính điểm phòng | Điểm âm/dương, bắt đầu 0, **tổng luôn = 0**, xếp hạng theo tổng giảm dần |
+
+### Còn cần xác nhận
+
+| # | Câu hỏi | Tạm dùng |
+|---|---|---|
+| 1 | Ví dụ B=5 ghi "Nhất được 60", nhưng Nhì+Ba+Bét chỉ trả 5+10+15 = 30. Nhất = tổng các nhà trả (6B) đúng không? | Nhất = tổng các nhà trả |
+| 2 | Móm bị trừ bao nhiêu? | −4B |
+| 3 | Ù khan / Ù khan tròn tính bao nhiêu? | Như Ù thường (5B) / Ù tròn (10B) |
+| 4 | Ù khan tròn chỉ áp dụng cho người đi đầu (người duy nhất có 10 lá khi chia)? | Đúng |
+| 5 | Khi **tắt** điểm ăn cây thường, Ù do ăn cây thứ 3 có còn đền làng không? | Vẫn đền |
+| 6 | Ù do ăn cây chốt có bị tính đền làng không? | Có |
+| 7 | Cây chốt cũng là lá ăn thứ k của người ăn: chỉ tính 4B hay cộng thêm kB? | Chỉ 4B |
+| 8 | Chiều đánh | Ngược chiều kim đồng hồ |
+| 9 | Có tính "Ù gửi" không? | Không |
+| 10 | Thời gian mỗi lượt | 25 giây |
 
 ---
 
