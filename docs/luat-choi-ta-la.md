@@ -344,6 +344,24 @@ Tất cả các điểm luật đã được chốt.
 
 ---
 
+## 12. Yêu cầu giao diện bàn chơi
+
+1. **Nút "Xếp bài":** tự sắp bài trên tay theo thứ tự **tăng dần từ trái qua phải**, gom nhóm
+   theo thứ tự **rác → cạ → phỏm** (phỏm nằm bên phải). Cách xếp phỏm dùng cách giảm được
+   **nhiều điểm nhất** (mục 5.1).
+   - Người chơi **kéo thả** đổi vị trí lá bài tuỳ ý; thứ tự lá trên tay chỉ là hiển thị phía
+     client, không ảnh hưởng luật.
+2. **Gợi ý hạ bài:** khi hạ, app đề xuất cách xếp phỏm + gửi bài giảm được nhiều điểm nhất
+   (ưu tiên không bị Móm), người chơi vẫn có thể chỉnh lại.
+3. **Đầu lượt:** hiển thị 2 nút **Ăn** (chỉ bật khi lá vừa đánh ăn được) và **Bốc**.
+4. **Ù:**
+   - Khi đủ điều kiện Ù (kể cả Ù khan / Ù khan tròn ngay sau chia), hiện nút
+     **"Hạ bài báo Ù"**; người chơi bấm thì app tự hạ theo cách tối ưu và kết thúc ván.
+   - Trường hợp **đền** (ăn cây thứ 3; ăn chốt khiến nhà đã hạ quay lại và Ù) thì
+     **tự động kết thúc ván và tính điểm ngay**, không cần bấm.
+
+---
+
 *Nguồn tham khảo (đối chiếu, các nguồn không hoàn toàn thống nhất):*
 [thuthuatchoi.com](https://thuthuatchoi.com/huong-dan-cach-choi-ta-la-phom.html),
 [gamebai.ad](https://gamebai.ad/luat-choi-phom/),
