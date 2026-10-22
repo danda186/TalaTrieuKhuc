@@ -193,7 +193,7 @@ Sau khi người cuối cùng hạ và đánh lá chốt:
 | Ăn cây thường thứ 3 *(nếu bật)* | Người bị ăn | Người ăn | ±3B | ±15 | ±30 |
 | Ù thường | Mỗi nhà | Người Ù | −5B / nhà (Ù +15B) | −25 / +75 | −50 / +150 |
 | Ù tròn | Mỗi nhà | Người Ù | −10B / nhà (Ù +30B) | −50 / +150 | −100 / +300 |
-| Ù gửi *(tạm = Ù thường)* | Mỗi nhà | Người Ù | −5B / nhà | −25 | −50 |
+| Ù gửi | Mỗi nhà | Người Ù | −5B / nhà | −25 | −50 |
 | Ù khan | Mỗi nhà | Người Ù | −5B / nhà | −25 | −50 |
 | Ù khan tròn (chỉ người đi đầu) | Mỗi nhà | Người Ù | −10B / nhà | −50 | −100 |
 | Ù đền | Người đền (trả cả 3 phần) | Người Ù | 3 × mức Ù tương ứng | −75 (Ù thường) | −150 |
@@ -280,6 +280,8 @@ Ghế: **A** (đi đầu, 10 lá) → **B** → **C** → **D**.
   để mọi client hiển thị giống nhau, không phụ thuộc giờ máy. Xem mục 11.
 - **Cấu hình phòng:** `base`, `tinhDiemAnCayThuong`, thời gian lượt, cùng các mục còn mở ở mục 10.
 - **Bảng điểm:** lưu từng khoản (ăn cây, chốt, xếp hạng, Ù) theo ván để hiển thị lịch sử và kiểm tra tổng = 0.
+- **Lịch sử trận:** khi phòng đóng (chủ động hoặc hết quỹ pause), lưu bảng điểm cuối cùng,
+  danh sách ván và lý do kết thúc vào lịch sử để người chơi xem lại.
 
 ---
 
@@ -304,16 +306,13 @@ Ghế: **A** (đi đầu, 10 lá) → **B** → **C** → **D**.
 | 13 | Ù gửi | **Có tính** |
 | 14 | Tạm dừng ván | Có, theo mục 11 |
 | 15 | Lượt quay lại của nhà đã hạ | Bốc/ăn, hạ thêm phỏm + gửi bài, đánh 1 lá; **không còn lá rác** → Ù |
+| 16 | Ù gửi | Như Ù thường: **5B mỗi nhà** |
+| 17 | Thời gian mỗi lượt | 25 giây (cấu hình được) |
+| 18 | Quỹ pause 10 phút | Tính cho **cả trận**; hết quỹ → **đóng phòng**, lưu bảng điểm vào **lịch sử** |
+| 19 | Hết quỹ pause giữa ván | Giữ các khoản ăn cây/chốt đã phát sinh, không xếp hạng ván dở |
+| 20 | Ai được pause | Bất kỳ người chơi nào, lúc nào cũng được, không giới hạn số lần (chỉ giới hạn tổng thời gian) |
 
-### Còn mở (đang dùng mặc định)
-
-| # | Câu hỏi | Mặc định |
-|---|---|---|
-| 1 | Ù gửi tính bao nhiêu? | Như Ù thường: 5B mỗi nhà |
-| 2 | Thời gian mỗi lượt | 25 giây (cấu hình được) |
-| 3 | Quỹ 10 phút pause tính cho **mỗi ván** hay **cả trận**? | Mỗi ván |
-| 4 | Khi hết quỹ pause: các khoản ăn cây/chốt đã phát sinh trong ván dở có được giữ? | Giữ (vẫn tổng = 0), không tính xếp hạng ván dở |
-| 5 | Ai được pause? Có giới hạn số lần? | Bất kỳ người chơi nào, không giới hạn số lần (chỉ giới hạn tổng thời gian) |
+Tất cả các điểm luật đã được chốt.
 
 ---
 
@@ -329,10 +328,11 @@ Ghế: **A** (đi đầu, 10 lá) → **B** → **C** → **D**.
    - **Người pause** được unpause **ngay lập tức**, bất cứ lúc nào.
    - **Người khác** chỉ được unpause sau khi đã pause **≥ 1 phút**.
    - Unpause → đồng hồ lượt chạy tiếp từ số giây còn lại, thông báo cho mọi người.
-4. **Quỹ pause: tổng 10 phút** (cộng dồn tất cả các lần pause).
+4. **Quỹ pause: tổng 10 phút cho cả trận** (cộng dồn mọi lần pause qua tất cả các ván
+   trong phòng, không reset sau mỗi ván).
    - Khi tổng thời gian pause **vượt 10 phút** → **kết thúc ngay lập tức**:
-     ván đang chơi dừng lại, **bảng xếp hạng phòng tại thời điểm đó là kết quả cuối cùng**
-     của trận, phòng chuyển sang màn hình tổng kết.
+     ván đang chơi dừng lại, **bảng xếp hạng phòng tại thời điểm đó là kết quả cuối cùng**,
+     **phòng bị đóng** và bảng điểm được **lưu vào lịch sử**.
    - Ván dở: không tính xếp hạng Nhất/Nhì/Ba/Bét; các khoản ăn cây/chốt đã ghi **giữ nguyên**
      (mỗi khoản đều cân bằng nên tổng điểm vẫn = 0).
 
@@ -340,7 +340,7 @@ Ghế: **A** (đi đầu, 10 lá) → **B** → **C** → **D**.
 |---|---|---|
 | Pause < 1 phút | Unpause được | Chờ |
 | Pause ≥ 1 phút | Unpause được | Unpause được |
-| Tổng pause > 10 phút | — | — → **kết thúc trận**, chốt bảng xếp hạng |
+| Tổng pause cả trận > 10 phút | — | — → **kết thúc trận**, đóng phòng, lưu bảng điểm vào lịch sử |
 
 ---
 
