@@ -52,7 +52,11 @@ Thuật ngữ liên quan:
 2. **Chia bài:** người đi đầu nhận **10 lá**, mỗi người còn lại **9 lá**.
 3. Phần còn lại úp thành **nọc** (chồng bài để bốc).
    - 4 người: 52 − (10 + 9×3) = **15 lá** trong nọc.
-4. **Chiều đánh:** ngược chiều kim đồng hồ (truyền thống). **[Biến thể]** nhiều app dùng chiều kim đồng hồ — app chỉ cần cố định thứ tự ghế.
+4. **Chiều chia và đánh:** người đi đầu ván (người **Nhất**/**Ù** ván trước) được **chọn chiều**
+   cho ván đó: **thuận** hoặc **ngược** chiều kim đồng hồ. Chiều đã chọn áp dụng cho cả chia bài
+   và thứ tự lượt trong suốt ván.
+   - Ván đầu tiên: chủ phòng chọn (mặc định ngược chiều kim đồng hồ).
+   - "Người ngồi trước" (người mình được ăn bài) và thứ tự hạ bài đều tính theo chiều đã chọn.
 
 ---
 
@@ -127,6 +131,7 @@ chốt gọi là **ăn chốt** — có giá trị cao hơn ăn thường (xem m
   để giảm điểm (VD: người trước hạ `5♥ 6♥ 7♥`, mình gửi `8♥`; hoặc gửi `7♣` vào bộ `7♠ 7♥ 7♦`).
 - Người hạ **đầu tiên** không có phỏm nào để gửi.
 - Lá đã gửi coi như hết, không tính điểm.
+- Nếu sau khi hạ + gửi + đánh lá cuối mà **không còn lá rác** → **Ù gửi** (mục 6).
 - Được gửi nhiều lá, vào nhiều phỏm của nhiều nhà khác nhau.
 
 ### 5.3 Móm (cháy)
@@ -143,6 +148,7 @@ Có thể Ù **bất cứ lúc nào đến lượt** (sau khi bốc hoặc ăn),
 |---|---|
 | **Ù thường** | Sau khi bốc/ăn có 10 lá: 9 lá thành phỏm, đánh lá còn lại ra (0 điểm rác). |
 | **Ù tròn** | Cả **10 lá** đều thành phỏm (không còn lá nào để đánh). |
+| **Ù gửi** | Khi hạ bài: hạ phỏm của mình, **gửi** các lá còn lại vào phỏm nhà đã hạ trước, đánh lá cuối mà **không còn lá rác**. Áp dụng cả với lượt quay lại của nhà đã hạ (mục 4.4). |
 | **Ù khan** | Ngay sau khi chia, **9 lá** trên tay **không có cạ nào** (không có 2 lá nào có cơ hội ghép thành phỏm). Báo ngay, trước lượt đầu. |
 | **Ù khan tròn** | Ngay sau khi chia, **10 lá** trên tay **không có cạ nào** (người đi đầu). |
 | **Ù đền** | (a) Ù do **ăn cây thứ 3** → người **đánh ra** cây thứ 3 đó phải **đền làng** (trả thay phần của cả 3 nhà). Áp dụng cả khi tắt điểm ăn cây thường. <br>(b) Một người **ăn chốt** khiến nhà đã hạ bài được quay lại đánh tiếp (mục 4.4), và nhà đó **Ù** → **người ăn chốt** đền làng (không phải người mất chốt). |
@@ -151,7 +157,6 @@ Có thể Ù **bất cứ lúc nào đến lượt** (sau khi bốc hoặc ăn),
   thì chênh lệch giá trị > 2. Chỉ cần 1 cặp vi phạm là không khan.
 - **Ăn cây thứ 3 luôn dẫn tới Ù:** mỗi phỏm chỉ chứa 1 lá ăn, nên 3 lá ăn = 3 phỏm ≥ 9 lá
   trên tay 10 lá → còn tối đa 1 lá để đánh.
-- **[Biến thể]** "Ù gửi": tính Ù nếu sau khi gửi bài không còn rác. Mặc định app **không** tính.
 - Khi một người Ù, những người khác **không hạ**, không xếp hạng; chỉ trả điểm Ù.
   Các khoản ăn cây đã phát sinh trước đó **vẫn giữ nguyên**.
 
@@ -188,6 +193,7 @@ Sau khi người cuối cùng hạ và đánh lá chốt:
 | Ăn cây thường thứ 3 *(nếu bật)* | Người bị ăn | Người ăn | ±3B | ±15 | ±30 |
 | Ù thường | Mỗi nhà | Người Ù | −5B / nhà (Ù +15B) | −25 / +75 | −50 / +150 |
 | Ù tròn | Mỗi nhà | Người Ù | −10B / nhà (Ù +30B) | −50 / +150 | −100 / +300 |
+| Ù gửi *(tạm = Ù thường)* | Mỗi nhà | Người Ù | −5B / nhà | −25 | −50 |
 | Ù khan | Mỗi nhà | Người Ù | −5B / nhà | −25 | −50 |
 | Ù khan tròn (chỉ người đi đầu) | Mỗi nhà | Người Ù | −10B / nhà | −50 | −100 |
 | Ù đền | Người đền (trả cả 3 phần) | Người Ù | 3 × mức Ù tương ứng | −75 (Ù thường) | −150 |
@@ -269,8 +275,9 @@ Ghế: **A** (đi đầu, 10 lá) → **B** → **C** → **D**.
   - Theo dõi `soLaDaDanh[]`, người đánh đầu vòng, logic chuyển bài (mục 4.4).
   - Ghi nhận **ai ăn của ai, vòng mấy** để tính tiền ăn, ăn chốt và Ù đền.
 - **State machine ván:** `CHIA_BAI → (KIEM_TRA_U_KHAN) → LUOT[người]: CHON(ăn|bốc) → (U?) → (HA nếu vòng cuối) → DANH → … → KET_THUC → TINH_DIEM`.
-- **Xử lý mất kết nối / hết giờ lượt:** cần luật timeout (VD 20–30 giây), tự động bốc +
-  đánh lá rác điểm cao nhất; khi hạ tự xếp phỏm tối ưu.
+- **Hết giờ lượt:** tự động bốc + đánh lá rác điểm cao nhất; khi hạ tự xếp phỏm tối ưu.
+- **Tạm dừng (pause):** đồng hồ do **server** giữ (thời điểm pause, người pause, quỹ pause còn lại)
+  để mọi client hiển thị giống nhau, không phụ thuộc giờ máy. Xem mục 11.
 - **Cấu hình phòng:** `base`, `tinhDiemAnCayThuong`, thời gian lượt, cùng các mục còn mở ở mục 10.
 - **Bảng điểm:** lưu từng khoản (ăn cây, chốt, xếp hạng, Ù) theo ván để hiển thị lịch sử và kiểm tra tổng = 0.
 
@@ -293,15 +300,47 @@ Ghế: **A** (đi đầu, 10 lá) → **B** → **C** → **D**.
 | 9 | Ù đền khi tắt điểm ăn cây | **Vẫn đền**, chỉ không có điểm ăn cây |
 | 10 | Ù đền do ăn chốt | Ăn chốt khiến nhà đã hạ quay lại đánh và Ù → **người ăn chốt đền** |
 | 11 | Cây chốt là cây thứ k | **Luôn 4B** |
+| 12 | Chiều chia/đánh | Người đi đầu ván (Nhất/Ù ván trước) **chọn** thuận hoặc ngược chiều kim đồng hồ |
+| 13 | Ù gửi | **Có tính** |
+| 14 | Tạm dừng ván | Có, theo mục 11 |
+| 15 | Lượt quay lại của nhà đã hạ | Bốc/ăn, hạ thêm phỏm + gửi bài, đánh 1 lá; **không còn lá rác** → Ù |
 
 ### Còn mở (đang dùng mặc định)
 
 | # | Câu hỏi | Mặc định |
 |---|---|---|
-| 1 | Chiều đánh | Ngược chiều kim đồng hồ |
-| 2 | Có tính "Ù gửi" không? | Không |
-| 3 | Thời gian mỗi lượt | 25 giây |
-| 4 | Lượt quay lại của nhà đã hạ: Ù khi nào? | Sau khi bốc/ăn, hạ thêm phỏm + gửi bài, đánh 1 lá mà **không còn lá rác** |
+| 1 | Ù gửi tính bao nhiêu? | Như Ù thường: 5B mỗi nhà |
+| 2 | Thời gian mỗi lượt | 25 giây (cấu hình được) |
+| 3 | Quỹ 10 phút pause tính cho **mỗi ván** hay **cả trận**? | Mỗi ván |
+| 4 | Khi hết quỹ pause: các khoản ăn cây/chốt đã phát sinh trong ván dở có được giữ? | Giữ (vẫn tổng = 0), không tính xếp hạng ván dở |
+| 5 | Ai được pause? Có giới hạn số lần? | Bất kỳ người chơi nào, không giới hạn số lần (chỉ giới hạn tổng thời gian) |
+
+---
+
+## 11. Tạm dừng ván (pause)
+
+1. **Ai được pause:** bất kỳ người chơi nào trong phòng, vào bất cứ lúc nào trong ván
+   (kể cả không phải lượt của mình). Khi ván đang pause thì không pause chồng được.
+2. **Khi pause:**
+   - Đồng hồ lượt **dừng lại**, giữ nguyên số giây còn lại; không ai thao tác được bài.
+   - **Thông báo** cho tất cả người chơi: ván đang tạm dừng, ai pause, thời gian pause đã trôi
+     và **quỹ pause còn lại**.
+3. **Bỏ pause (unpause):**
+   - **Người pause** được unpause **ngay lập tức**, bất cứ lúc nào.
+   - **Người khác** chỉ được unpause sau khi đã pause **≥ 1 phút**.
+   - Unpause → đồng hồ lượt chạy tiếp từ số giây còn lại, thông báo cho mọi người.
+4. **Quỹ pause: tổng 10 phút** (cộng dồn tất cả các lần pause).
+   - Khi tổng thời gian pause **vượt 10 phút** → **kết thúc ngay lập tức**:
+     ván đang chơi dừng lại, **bảng xếp hạng phòng tại thời điểm đó là kết quả cuối cùng**
+     của trận, phòng chuyển sang màn hình tổng kết.
+   - Ván dở: không tính xếp hạng Nhất/Nhì/Ba/Bét; các khoản ăn cây/chốt đã ghi **giữ nguyên**
+     (mỗi khoản đều cân bằng nên tổng điểm vẫn = 0).
+
+| Trạng thái | Người pause | Người khác |
+|---|---|---|
+| Pause < 1 phút | Unpause được | Chờ |
+| Pause ≥ 1 phút | Unpause được | Unpause được |
+| Tổng pause > 10 phút | — | — → **kết thúc trận**, chốt bảng xếp hạng |
 
 ---
 
