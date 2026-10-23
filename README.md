@@ -6,10 +6,11 @@ Mobile app (Flutter) cho phép **4 người chơi kết nối cùng một phòng
 
 - [Luật chơi Tá lả — đặc tả cho app](docs/luat-choi-ta-la.md)
 - [Package luật chơi `ta_la_engine`](packages/ta_la_engine/README.md)
+- [Kiến trúc chơi online (đề xuất)](docs/kien-truc-online.md)
 
 ## Lộ trình
 
 1. ✅ Tìm hiểu & chốt luật chơi
 2. ✅ Engine luật (Dart thuần, có unit test + mô phỏng 3000 ván): `packages/ta_la_engine`
-3. ⬜ Chọn kiến trúc online (server trọng tài, phòng 4 người)
+3. 🟡 Kiến trúc online: đã có đề xuất (server Dart trọng tài + WebSocket, lịch sử lưu local) — chờ chốt
 4. ⬜ UI Flutter: sảnh, phòng chờ, bàn chơi (điểm cạnh tên người chơi), hạ bài, tạm dừng, bảng điểm
