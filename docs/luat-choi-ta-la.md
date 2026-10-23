@@ -349,13 +349,22 @@ Tất cả các điểm luật đã được chốt.
 
 ## 12. Yêu cầu giao diện bàn chơi
 
+0. **Khổ màn hình:** thiết kế cho **iPhone 15 Pro Max xoay ngang (932 × 430 pt)**.
 1. **Nút "Xếp bài":** tự sắp bài trên tay theo thứ tự **tăng dần từ trái qua phải**, gom nhóm
    theo thứ tự **rác → cạ → phỏm** (phỏm nằm bên phải). Cách xếp phỏm dùng cách giảm được
    **nhiều điểm nhất** (mục 5.1).
    - Người chơi **kéo thả** đổi vị trí lá bài tuỳ ý; thứ tự lá trên tay chỉ là hiển thị phía
      client, không ảnh hưởng luật.
-2. **Gợi ý hạ bài:** khi hạ, app đề xuất cách xếp phỏm + gửi bài giảm được nhiều điểm nhất
-   (ưu tiên không bị Móm), người chơi vẫn có thể chỉnh lại.
+   - Lá bài trên tay **gối lên nhau**: lá bên phải đè **một nửa** lá bên trái (chỉ cần thấy
+     góc giá trị + chất). Hàng bài đánh và phỏm trên bàn cũng xếp gối như vậy.
+2. **Hạ bài ngay trên bàn chơi** (không có màn hình hạ bài riêng). Tới lượt hạ:
+   - Chạm chọn lá giống như chọn lá để đánh, nhưng **được chọn nhiều lá** (phỏm dây nhiều lá).
+   - Bấm **"Hạ phỏm"** khi các lá đã chọn thành phỏm hợp lệ; **hạ lần lượt từng phỏm**.
+   - Chọn 1 lá rồi bấm **"Gửi"** để gửi vào phỏm của nhà đã hạ trước (nút tự hiện tên nhà).
+   - Chọn 1 lá rồi bấm **"Đánh · hạ xong"** để kết thúc lượt hạ (phải hạ hết phỏm có lá ăn
+     trước).
+   - Nút **"Gợi ý"** tự chọn sẵn phỏm (hoặc lá gửi / lá đánh) giảm được nhiều điểm nhất
+     (ưu tiên không bị Móm); người chơi vẫn chỉnh được.
 3. **Đầu lượt:** hiển thị 2 nút **Ăn** (chỉ bật khi lá vừa đánh ăn được) và **Bốc**.
 4. **Ù:**
    - Khi đủ điều kiện Ù (kể cả Ù khan / Ù khan tròn ngay sau chia), hiện nút
@@ -363,11 +372,10 @@ Tất cả các điểm luật đã được chốt.
    - Trường hợp **đền** (ăn cây thứ 3; ăn chốt khiến nhà đã hạ quay lại và Ù) thì
      **tự động kết thúc ván và tính điểm ngay**, không cần bấm.
 5. **Báo điểm:** không có màn hình kết quả ván riêng.
-   - **Tổng điểm trận** hiển thị ngay **cạnh tên từng người chơi** trên bàn chơi (dương/âm,
-     kèm dấu).
-   - **Sau khi kết thúc mỗi ván**, số điểm cộng/trừ của ván đó hiện **bên dưới tổng điểm**
-     (VD: tổng `+80`, dưới là `+75`), và tổng điểm được cập nhật. Trong lúc đang chơi không
-     hiện điểm ván.
+   - **Tên và tổng điểm trận** hiển thị **cạnh nhau** cho từng người chơi trên bàn chơi
+     (dương/âm, kèm dấu).
+   - **Sau khi kết thúc mỗi ván**, tổng điểm được cập nhật và số điểm cộng/trừ của ván đó hiện
+     **bên dưới tổng điểm khoảng 3 giây** rồi ẩn. Trong lúc đang chơi không hiện điểm ván.
    - Khi ván kết thúc, người thắng chọn chiều đánh ván sau ngay trên bàn chơi rồi bấm
      **"Ván tiếp"**. Chi tiết từng ván xem ở màn **Bảng điểm**.
 
