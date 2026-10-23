@@ -111,6 +111,15 @@ Khi lá của người **V** bị ăn, hàng bài đánh của V bị hụt 1 l�
 **Cây chốt** là lá đánh ra ở **vòng thứ 4** (lá cuối cùng của một người). Ăn được cây
 chốt gọi là **ăn chốt** — có giá trị cao hơn ăn thường (xem mục 7).
 
+**Chốt chuyển hạ:** người đánh đầu vòng 4 (sắp phải **hạ đầu tiên**) ăn được **lá cuối cùng
+của vòng 3** do nhà ngồi trước đánh. Vì bị chuyển mất 1 lá (mục 4.4), người ăn **không phải
+hạ đầu nữa**, người kế tiếp thành người hạ đầu. Lá bị ăn **tính như cây chốt**: người đánh lá
+đó **mất chốt** (trả 4B), lá ăn cũng được tính là ăn chốt.
+
+> Ví dụ: A đánh đầu, sau vòng 3 cả 4 nhà đều đã đánh 3 lá. D đánh lá cuối vòng 3 là `6♠`,
+> A có `3♠ 4♠ 5♠` nên ăn được. A bị chuyển 1 lá sang D, B thành người hạ đầu; D mất chốt
+> (A +4B, D −4B).
+
 ---
 
 ## 5. Hạ phỏm và gửi bài

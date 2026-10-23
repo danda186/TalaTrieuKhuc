@@ -164,6 +164,33 @@ void main() {
     });
   });
 
+  group('Chốt chuyển hạ', () {
+    test('A sắp hạ đầu ăn lá cuối vòng 3 của D → D mất chốt, B hạ đầu', () {
+      var s = dealFrom(
+        stackDeck(hands: _fullRoundHands, draws: _fullRoundDraws),
+      );
+      s = play(s, [DiscardCard(0, card('9D'))]);
+      for (final seat in [1, 2, 3, 0, 1, 2, 3, 0, 1, 2]) {
+        s = drawToss(s, seat);
+      }
+      // Lá cuối vòng 3: D đánh 6♠; A (đầu vòng 4, sắp hạ đầu) ăn với 3-4-5♠.
+      s = play(s, [const DrawCard(3), DiscardCard(3, card('6S'))]);
+      expect(s.roundLeader, 0);
+      expect(s.discards.map((d) => d.length), [3, 3, 3, 3]);
+      s = play(s, [const EatCard(0)]);
+      expect(s.eaten[0].single.isChot, isTrue);
+      expect(s.ledger.single.reason, ScoreReason.chotEat);
+      expect(s.netScore, [20, 0, 0, -20]);
+      // A không phải hạ đầu nữa: bị chuyển 1 lá sang D, B thành người hạ đầu.
+      expect(s.phase, TurnPhase.discard);
+      expect(s.discards[0], hasLength(2));
+      expect(s.discards[3], hasLength(3));
+      expect(s.roundLeader, 1);
+      s = play(s, [DiscardCard(0, card('QH')), const DrawCard(1)]);
+      expect(s.phase, TurnPhase.layDown);
+    });
+  });
+
   group('Vòng 4: ăn chốt', () {
     test('nhà đã hạ quay lại và Ù → người ăn chốt đền (ví dụ 7.4)', () {
       var s = _playToChot();

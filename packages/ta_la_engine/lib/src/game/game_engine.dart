@@ -183,6 +183,7 @@ abstract final class TaLaEngine {
     if (!canEat(state.hands[seat], state.unlaidEaten(seat), last.card)) {
       return const Err(RuleViolation.cannotEat);
     }
+    final isChot = last.isChot || _shiftsLayDown(state, seat);
     final draft = TableDraft.from(state);
     draft.discards[last.seat].removeLast();
     draft.hands[seat].add(last.card);
@@ -192,10 +193,10 @@ abstract final class TaLaEngine {
         card: last.card,
         fromSeat: last.seat,
         order: order,
-        isChot: last.isChot,
+        isChot: isChot,
       ),
     );
-    _chargeEat(draft, seat, last, order);
+    _chargeEat(draft, seat, last.seat, order: order, isChot: isChot);
     draft
       ..rebalanceAfterEat(victim: last.seat, eater: seat)
       ..actedSeats.add(seat)
@@ -214,23 +215,30 @@ abstract final class TaLaEngine {
     return Ok(draft.freeze());
   }
 
+  /// **Chốt chuyển hạ**: người đánh đầu vòng đang tới lượt hạ bài (đã đánh
+  /// 3 lá, chưa hạ) ăn lá cuối của vòng trước. Họ bị chuyển mất 1 lá nên
+  /// không phải hạ đầu nữa, và lá bị ăn tính như cây chốt: người đánh lá đó
+  /// mất chốt.
+  static bool _shiftsLayDown(GameState state, int seat) =>
+      state.roundLeader == seat &&
+      !state.hasLaidDown(seat) &&
+      state.discards[seat].length == 3;
+
   static void _chargeEat(
     TableDraft draft,
     int seat,
-    LastDiscard last,
-    int order,
-  ) {
-    final amount = draft.settings.eatAmount(
-      order: order,
-      isChot: last.isChot,
-    );
+    int victim, {
+    required int order,
+    required bool isChot,
+  }) {
+    final amount = draft.settings.eatAmount(order: order, isChot: isChot);
     if (amount <= 0) return;
     draft.ledger.add(
       ScoreEntry(
-        payer: last.seat,
+        payer: victim,
         payee: seat,
         amount: amount,
-        reason: last.isChot ? ScoreReason.chotEat : ScoreReason.regularEat,
+        reason: isChot ? ScoreReason.chotEat : ScoreReason.regularEat,
       ),
     );
   }
