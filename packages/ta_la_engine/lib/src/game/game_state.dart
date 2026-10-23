@@ -12,6 +12,24 @@ enum TurnDirection {
   clockwise,
 }
 
+/// Chiều đánh khi người đi đầu [firstSeat] chọn [nextSeat] là người được
+/// chia bài và đánh ngay sau mình (cách chọn chiều trên giao diện).
+///
+/// `null` khi [nextSeat] không ngồi cạnh [firstSeat] hoặc ghế không hợp lệ.
+TurnDirection? directionToward({
+  required int firstSeat,
+  required int nextSeat,
+  int seatCount = 4,
+}) {
+  bool valid(int seat) => seat >= 0 && seat < seatCount;
+  if (seatCount < 2 || !valid(firstSeat) || !valid(nextSeat)) return null;
+  if ((firstSeat + 1) % seatCount == nextSeat) {
+    return TurnDirection.counterClockwise;
+  }
+  if ((firstSeat - 1) % seatCount == nextSeat) return TurnDirection.clockwise;
+  return null;
+}
+
 /// Bước hiện tại trong lượt của người đang đánh.
 enum TurnPhase {
   /// Đầu lượt: chọn Ăn hoặc Bốc.

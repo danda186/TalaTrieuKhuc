@@ -52,10 +52,12 @@ Thuật ngữ liên quan:
 2. **Chia bài:** người đi đầu nhận **10 lá**, mỗi người còn lại **9 lá**.
 3. Phần còn lại úp thành **nọc** (chồng bài để bốc).
    - 4 người: 52 − (10 + 9×3) = **15 lá** trong nọc.
-4. **Chiều chia và đánh:** người đi đầu ván (người **Nhất**/**Ù** ván trước) được **chọn chiều**
-   cho ván đó: **thuận** hoặc **ngược** chiều kim đồng hồ. Chiều đã chọn áp dụng cho cả chia bài
-   và thứ tự lượt trong suốt ván.
-   - Ván đầu tiên: chủ phòng chọn (mặc định ngược chiều kim đồng hồ).
+4. **Chiều chia và đánh:** khi chia bài, người đi đầu ván (người **Nhất**/**Ù** ván trước) chỉ
+   cần **chọn người được chia và đánh ngay sau mình** (một trong hai nhà ngồi cạnh). Việc chọn
+   người đó tương đương chọn chiều của ván: chọn nhà bên phải là **ngược** chiều kim đồng hồ,
+   nhà bên trái là **thuận** chiều. Chiều này áp dụng cho cả chia bài và thứ tự lượt trong suốt
+   ván (engine: `directionToward(firstSeat, nextSeat)`).
+   - Ván đầu tiên: chủ phòng chọn (mặc định nhà bên phải, tức ngược chiều kim đồng hồ).
    - "Người ngồi trước" (người mình được ăn bài) và thứ tự hạ bài đều tính theo chiều đã chọn.
 
 ---
@@ -314,7 +316,7 @@ Ghế: **A** (đi đầu, 10 lá) → **B** → **C** → **D**.
 | 9 | Ù đền khi tắt điểm ăn cây | **Vẫn đền**, chỉ không có điểm ăn cây |
 | 10 | Ù đền do ăn chốt | Ăn chốt khiến nhà đã hạ quay lại đánh và Ù → **người ăn chốt đền** |
 | 11 | Cây chốt là cây thứ k | **Luôn 4B** |
-| 12 | Chiều chia/đánh | Người đi đầu ván (Nhất/Ù ván trước) **chọn** thuận hoặc ngược chiều kim đồng hồ |
+| 12 | Chiều chia/đánh | Người đi đầu ván (Nhất/Ù ván trước) **chọn người đánh sau mình** (= chọn chiều) |
 | 13 | Ù gửi | **Có tính** |
 | 14 | Tạm dừng ván | Có, theo mục 11 |
 | 15 | Lượt quay lại của nhà đã hạ | Bốc/ăn, hạ thêm phỏm + gửi bài, đánh 1 lá; **không còn lá rác** → Ù |

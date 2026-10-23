@@ -85,6 +85,22 @@ void main() {
       expect(violation(result), RuleViolation.invalidDeck);
     });
 
+    test('chọn người đánh sau = chọn chiều', () {
+      expect(
+        directionToward(firstSeat: 2, nextSeat: 3),
+        TurnDirection.counterClockwise,
+      );
+      expect(
+        directionToward(firstSeat: 0, nextSeat: 3),
+        TurnDirection.clockwise,
+      );
+      expect(directionToward(firstSeat: 0, nextSeat: 2), isNull);
+      expect(directionToward(firstSeat: 1, nextSeat: 1), isNull);
+      final dir = directionToward(firstSeat: 1, nextSeat: 0)!;
+      final s = dealFrom(standardDeck(), firstSeat: 1, direction: dir);
+      expect(s.next(1), 0);
+    });
+
     test('chiều thuận: ghế tiếp theo là seat - 1', () {
       final s = dealFrom(
         standardDeck(),
