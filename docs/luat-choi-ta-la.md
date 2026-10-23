@@ -362,11 +362,14 @@ Tất cả các điểm luật đã được chốt.
      **"Hạ bài báo Ù"**; người chơi bấm thì app tự hạ theo cách tối ưu và kết thúc ván.
    - Trường hợp **đền** (ăn cây thứ 3; ăn chốt khiến nhà đã hạ quay lại và Ù) thì
      **tự động kết thúc ván và tính điểm ngay**, không cần bấm.
-5. **Báo điểm:** không có màn hình kết quả ván riêng. Tổng điểm trận hiển thị ngay **cạnh tên
-   từng người chơi** trên bàn chơi (dương/âm, kèm dấu), cập nhật ngay khi có khoản phát sinh
-   (ăn cây, ăn chốt, Ù, xếp hạng cuối ván), kèm số điểm thay đổi của ván đang chơi.
-   Khi ván kết thúc, người thắng chọn chiều đánh ván sau ngay trên bàn chơi rồi bấm
-   **"Ván tiếp"**. Chi tiết từng ván xem ở màn **Bảng điểm**.
+5. **Báo điểm:** không có màn hình kết quả ván riêng.
+   - **Tổng điểm trận** hiển thị ngay **cạnh tên từng người chơi** trên bàn chơi (dương/âm,
+     kèm dấu).
+   - **Sau khi kết thúc mỗi ván**, số điểm cộng/trừ của ván đó hiện **bên dưới tổng điểm**
+     (VD: tổng `+80`, dưới là `+75`), và tổng điểm được cập nhật. Trong lúc đang chơi không
+     hiện điểm ván.
+   - Khi ván kết thúc, người thắng chọn chiều đánh ván sau ngay trên bàn chơi rồi bấm
+     **"Ván tiếp"**. Chi tiết từng ván xem ở màn **Bảng điểm**.
 
 ---
 
