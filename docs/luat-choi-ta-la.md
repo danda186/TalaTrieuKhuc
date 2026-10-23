@@ -355,8 +355,15 @@ Tất cả các điểm luật đã được chốt.
      (sau nọc). Tên/điểm người chơi và bảng nút đặt trên các ô nền tối để dễ đọc.
    - **Vị trí người chơi: 4 góc chiếu**, theo chiều đánh: bạn ở **góc dưới trái** (cạnh bài trên
      tay), nhà kế tiếp **góc dưới phải**, nhà đối diện **góc trên phải**, nhà ngồi trước (người
-     mình ăn bài) **góc trên trái**. Mỗi góc có tên + tổng điểm, hàng bài đánh, phỏm đã hạ.
-     Nọc và lá vừa đánh ở giữa; bảng nút thao tác nằm ngang ở giữa cạnh dưới.
+     mình ăn bài) **góc trên trái**. Mỗi góc có tên + tổng điểm và phỏm đã hạ.
+   - **Khung giữa:** nọc, lá vừa đánh và mặt chữ Thọ của chiếu nằm **chính giữa màn hình**
+     (cả trên dưới lẫn trái phải), có một **khung nhỏ** bao quanh. Viền khung có **mũi tên chạy
+     vòng** theo chiều đánh (tắt chuyển động khi máy bật giảm chuyển động).
+   - **Bài đánh** của mỗi người không nằm dưới tên mà **đè lên giữa cạnh khung** phía người đó:
+     bạn cạnh dưới, nhà kế tiếp cạnh phải, nhà đối diện cạnh trên, nhà ngồi trước cạnh trái
+     (cạnh trái/phải xếp dọc, gối nửa lá).
+   - **Đồng hồ lượt** là vòng đếm ngược quanh ảnh đại diện của người đang đánh, kèm số giây.
+   - Bảng nút thao tác nằm ngang ở giữa cạnh dưới, giữa bài trên tay và góc nhà kế tiếp.
 1. **Nút "Xếp bài":** tự sắp bài trên tay theo thứ tự **tăng dần từ trái qua phải**, gom nhóm
    theo thứ tự **rác → cạ → phỏm** (phỏm nằm bên phải). Cách xếp phỏm dùng cách giảm được
    **nhiều điểm nhất** (mục 5.1).
