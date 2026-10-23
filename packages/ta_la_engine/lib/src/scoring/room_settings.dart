@@ -27,15 +27,15 @@ final class RoomSettings {
     this.othersMayResumeAfter = const Duration(minutes: 1),
   }) : assert(base > 0, 'base phải dương');
 
-  /// Mức base lớn nhất cho phép nhập (6 chữ số).
-  static const int maxBase = 999999;
+  /// Mức base lớn nhất cho phép nhập.
+  static const int maxBase = 1000;
 
   /// Đọc mức base người dùng nhập: chỉ nhận **số nguyên dương** gồm toàn chữ
   /// số (VD `"5"`, `"12"`), tối đa [maxBase]. `null` khi trống, có ký tự
   /// khác chữ số (dấu, chấm, phẩy…), bằng 0 hoặc quá lớn.
   static int? parseBase(String text) {
     final trimmed = text.trim();
-    if (!RegExp(r'^[0-9]{1,6}$').hasMatch(trimmed)) return null;
+    if (!RegExp(r'^[0-9]{1,4}$').hasMatch(trimmed)) return null;
     final value = int.parse(trimmed);
     return value >= 1 && value <= maxBase ? value : null;
   }

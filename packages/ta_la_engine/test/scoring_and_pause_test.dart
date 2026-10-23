@@ -19,6 +19,7 @@ void main() {
       expect(RoomSettings.parseBase('5'), 5);
       expect(RoomSettings.parseBase(' 12 '), 12);
       expect(RoomSettings.parseBase('007'), 7);
+      expect(RoomSettings.parseBase('1000'), 1000);
       for (final bad in [
         '',
         '0',
