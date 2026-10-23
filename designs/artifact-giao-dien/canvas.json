@@ -1,0 +1,87 @@
+{
+  "v": 3,
+  "createdOnFiles": {
+    "v": 1,
+    "at": "2026-10-22T16:00:00Z"
+  },
+  "title": "Tá Lả Triều Khúc – Giao diện",
+  "launch": {
+    "view": "canvas"
+  },
+  "pages": [],
+  "boards": {
+    "Main.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 932,
+      "h": 430,
+      "title": "Sảnh · Tạo phòng",
+      "is_interactive": true,
+      "radius": 28
+    },
+    "Room.dc.html": {
+      "x": 1012,
+      "y": 0,
+      "w": 932,
+      "h": 430,
+      "title": "Phòng chờ",
+      "is_interactive": true,
+      "radius": 28
+    },
+    "Table.dc.html": {
+      "x": 0,
+      "y": 770,
+      "w": 932,
+      "h": 430,
+      "title": "Bàn chơi (bấm thử · có lượt hạ bài)",
+      "is_interactive": true,
+      "radius": 28
+    },
+    "Scoreboard.dc.html": {
+      "x": 0,
+      "y": 1540,
+      "w": 932,
+      "h": 430,
+      "title": "Bảng điểm phòng · Lịch sử",
+      "is_interactive": true,
+      "radius": 28
+    }
+  },
+  "order": [
+    "Main.dc.html",
+    "Room.dc.html",
+    "Table.dc.html",
+    "Scoreboard.dc.html"
+  ],
+  "notes": {
+    "row1": {
+      "x": 0,
+      "y": -300,
+      "text": "1 · Vào phòng",
+      "kind": "title1",
+      "maxW": 1944
+    },
+    "row2": {
+      "x": 0,
+      "y": 470,
+      "text": "2 · Trong ván",
+      "kind": "title1",
+      "maxW": 932
+    },
+    "row3": {
+      "x": 0,
+      "y": 1240,
+      "text": "3 · Bảng điểm",
+      "kind": "title1",
+      "maxW": 932
+    },
+    "readme": {
+      "x": 2024,
+      "y": -300,
+      "text": "Khổ iPhone 15 Pro Max xoay ngang (932×430).\nBàn chơi: Xếp bài, Ăn/Bốc, chọn lá để Đánh, kéo thả đổi vị trí lá. Lá bài gối lên nhau (lá bên phải đè nửa lá bên trái).\nLượt hạ bài ngay trên bàn: chọn nhiều lá → Hạ phỏm (hạ lần lượt từng phỏm), chọn 1 lá → Gửi hoặc Đánh · hạ xong. Bấm \"Sang lượt hạ bài\" hoặc đổi Tweaks › Kịch bản.\nNút tạm dừng mở popup ngay trên bàn đang chơi (Tweaks › Tạm dừng: ai bấm, quỹ đã dùng).\nTổng điểm cạnh tên; điểm cộng/trừ của ván hiện dưới tổng điểm ~3 giây sau khi ván kết thúc.",
+      "w": 420,
+      "size": "m",
+      "fill": "teal"
+    }
+  }
+}

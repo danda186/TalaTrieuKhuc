@@ -1,0 +1,809 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Bàn chơi</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#F2B544}a:hover{color:#FFD27A}
+button{font-family:inherit}
+button:disabled{cursor:default}
+.runner{position:absolute;left:0;top:0;width:18px;height:18px;offset-path:path('M140,150 L266,150 Q280,150 280,136 L280,14 Q280,0 266,0 L14,0 Q0,0 0,14 L0,136 Q0,150 14,150 Z');offset-anchor:center;offset-rotate:auto;animation:ta-la-run 7s linear infinite}
+.runner.late{animation-delay:-3.5s}
+@keyframes ta-la-run{from{offset-distance:0%}to{offset-distance:100%}}
+.turn-glow{animation:ta-la-glow 1.6s ease-in-out infinite}
+@keyframes ta-la-glow{0%,100%{box-shadow:0 0 0 2px rgba(242,181,68,0.35),0 0 8px rgba(242,181,68,0.45)}50%{box-shadow:0 0 0 4px rgba(242,181,68,0.55),0 0 18px rgba(242,181,68,0.85)}}
+@media (prefers-reduced-motion: reduce){.runner{animation:none;offset-distance:12%}.runner.late{offset-distance:62%}.turn-glow{animation:none}}
+</style>
+</helmet>
+<div style="position: relative; width: 932px; height: 430px; overflow: hidden; background: #24160F; color: #F4F0E6; font-family: 'Be Vietnam Pro', system-ui, sans-serif">
+
+  <div aria-hidden="true" style="position: absolute; left: 6px; top: 50px; right: 6px; bottom: 6px; box-sizing: border-box; padding: 14px; border-radius: 10px; background: #B3202A; box-shadow: inset 0 0 0 5px #B3202A, inset 0 0 0 7px #EAD7A6, 0 6px 18px rgba(0,0,0,0.5)">
+    <div style="position: relative; width: 100%; height: 100%; border-radius: 3px; background-color: #E7D19E; background-image: repeating-linear-gradient(0deg, rgba(122,84,34,0.16) 0px, rgba(122,84,34,0.16) 1px, transparent 1px, transparent 4px), repeating-linear-gradient(90deg, rgba(255,250,235,0.22) 0px, rgba(255,250,235,0.22) 3px, transparent 3px, transparent 9px)">
+      <div style="position: absolute; left: 10px; top: 10px; right: 10px; bottom: 10px; border: 2px solid #B3202A; border-radius: 2px"></div>
+      <svg width="46" height="46" viewBox="0 0 46 46" style="position: absolute; left: 20px; top: 20px;" aria-hidden="true"><path d="M2 2h42v8H10v34H2z" fill="#B3202A"></path><path d="M16 16h24v6H22v22h-6z" fill="#B3202A"></path></svg>
+      <svg width="46" height="46" viewBox="0 0 46 46" style="position: absolute; right: 20px; top: 20px; transform: scaleX(-1);" aria-hidden="true"><path d="M2 2h42v8H10v34H2z" fill="#B3202A"></path><path d="M16 16h24v6H22v22h-6z" fill="#B3202A"></path></svg>
+      <svg width="46" height="46" viewBox="0 0 46 46" style="position: absolute; left: 20px; bottom: 20px; transform: scaleY(-1);" aria-hidden="true"><path d="M2 2h42v8H10v34H2z" fill="#B3202A"></path><path d="M16 16h24v6H22v22h-6z" fill="#B3202A"></path></svg>
+      <svg width="46" height="46" viewBox="0 0 46 46" style="position: absolute; right: 20px; bottom: 20px; transform: scale(-1, -1);" aria-hidden="true"><path d="M2 2h42v8H10v34H2z" fill="#B3202A"></path><path d="M16 16h24v6H22v22h-6z" fill="#B3202A"></path></svg>
+      <svg width="150" height="150" viewBox="0 0 150 150" style="position: absolute; left: 371px; top: 76px; opacity: 0.45" aria-hidden="true">
+        <circle cx="75" cy="75" r="62" fill="none" stroke="#B3202A" stroke-width="10"></circle>
+        <circle cx="75" cy="75" r="44" fill="none" stroke="#B3202A" stroke-width="5"></circle>
+        <rect x="52" y="40" width="46" height="8" fill="#B3202A"></rect>
+        <rect x="52" y="102" width="46" height="8" fill="#B3202A"></rect>
+        <rect x="44" y="61" width="62" height="7" fill="#B3202A"></rect>
+        <rect x="44" y="82" width="62" height="7" fill="#B3202A"></rect>
+        <rect x="71" y="40" width="8" height="70" fill="#B3202A"></rect>
+        <rect x="3" y="70" width="20" height="10" fill="#B3202A"></rect>
+        <rect x="127" y="70" width="20" height="10" fill="#B3202A"></rect>
+        <rect x="70" y="3" width="10" height="20" fill="#B3202A"></rect>
+        <rect x="70" y="127" width="10" height="20" fill="#B3202A"></rect>
+      </svg>
+    </div>
+  </div>
+
+  <div style="position: absolute; left: 0; top: 0; right: 0; height: 44px; display: flex; align-items: center; gap: 10px; padding: 0 12px; background: #1A100B; border-bottom: 1px solid #4A3020">
+    <span style="font-size: 13px; font-weight: 700">Phòng 2481</span>
+    <span style="font-size: 12px; color: #B9CDBF">Ván 3 · Vòng {{roundLabel}}/4 · Base 5</span>
+    <span style="display: flex; align-items: center; gap: 4px; font-size: 12px; color: #B9CDBF">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 109-9"></path><path d="M3 4v5h5"></path></svg>
+      Ngược chiều
+    </span>
+    <span style="flex: 1"></span>
+    <a href="Scoreboard.dc.html" style="display: flex; align-items: center; justify-content: center; gap: 6px; height: 36px; padding: 0 10px; border-radius: 8px; border: 1px solid #5A3A28; color: #F4F0E6; font-size: 13px; font-weight: 600; text-decoration: none">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 20V10M12 20V4M19 20v-7"></path></svg>
+      Bảng điểm
+    </a>
+    <button onClick="{{pause}}" aria-label="Tạm dừng ván" style="display: flex; align-items: center; justify-content: center; width: 44px; height: 36px; border-radius: 8px; border: 1px solid #5A3A28; background: transparent; color: #F4F0E6; cursor: pointer">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"></rect><rect x="14" y="5" width="4" height="14" rx="1"></rect></svg>
+    </button>
+  </div>
+
+  <div style="position: absolute; left: 326px; top: 140px; width: 280px; height: 150px">
+    <div style="position: absolute; left: 0; top: 0; width: 280px; height: 150px; box-sizing: border-box; border-radius: 14px; border: 2px solid rgba(139,28,34,0.65); background: rgba(255,246,222,0.35)"></div>
+    <svg class="runner" viewBox="0 0 18 18" aria-hidden="true"><path d="M3 3l12 6-12 6 3-6z" fill="#B3202A"></path></svg>
+    <svg class="runner late" viewBox="0 0 18 18" aria-hidden="true"><path d="M3 3l12 6-12 6 3-6z" fill="#B3202A"></path></svg>
+  </div>
+
+  <div style="position: absolute; left: 466px; top: 215px; transform: translate(-50%, -50%); display: flex; align-items: center">
+    <div aria-label="{{deckAria}}" style="position: relative; width: 66px; height: 92px">
+      <div style="position: absolute; left: 6px; top: 0; width: 60px; height: 86px; box-sizing: border-box; border-radius: 8px; background: #163F30; border: 3px solid #FBF8F1"></div>
+      <div style="position: absolute; left: 3px; top: 3px; width: 60px; height: 86px; box-sizing: border-box; border-radius: 8px; background: #1B4A39; border: 3px solid #FBF8F1"></div>
+      <div style="position: absolute; left: 0; top: 6px; width: 60px; height: 86px; box-sizing: border-box; border-radius: 8px; background: #215A45; border: 3px solid #FBF8F1; box-shadow: 0 4px 10px rgba(60,30,10,0.35); display: flex; flex-direction: column; align-items: center; justify-content: center; color: #FBF8F1">
+        <span style="font-size: 24px; font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums">{{deckCount}}</span>
+        <span style="font-size: 11px; font-weight: 600">lá</span>
+      </div>
+    </div>
+  </div>
+
+  <sc-for list="{{piles}}" as="p" hint-placeholder-count="4">
+    <div aria-label="{{p.aria}}" style="{{p.style}}">
+      <sc-for list="{{p.cards}}" as="d" hint-placeholder-count="2">
+        <div style="{{d.style}}">
+          <span style="font-size: 14px; font-weight: 800; line-height: 1">{{d.rank}}</span>
+          <span style="font-size: 15px; line-height: 1">{{d.suit}}</span>
+        </div>
+      </sc-for>
+    </div>
+  </sc-for>
+
+  <sc-for list="{{opponents}}" as="o" hint-placeholder-count="3">
+    <div style="{{o.pos}}">
+      <div class="{{o.plaqueClass}}" style="{{o.plaque}}">
+        <div style="{{o.ring}}"><div style="{{o.avatar}}">{{o.initials}}</div></div>
+        <div style="display: flex; flex-direction: column; gap: 2px">
+          <div style="display: flex; align-items: flex-start; gap: 6px">
+            <span style="font-size: 13px; font-weight: 700; line-height: 18px">{{o.name}}</span>
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 2px">
+              <span aria-label="{{o.scoreAria}}" style="{{o.scoreStyle}}">{{o.score}}</span>
+              <sc-if value="{{o.hasDelta}}" hint-placeholder-val="{{ false }}">
+                <span role="status" aria-label="{{o.deltaAria}}" style="font-size: 11px; font-weight: 800; font-variant-numeric: tabular-nums; color: {{o.deltaColor}}">{{o.delta}}</span>
+              </sc-if>
+            </div>
+            <sc-if value="{{o.active}}" hint-placeholder-val="{{ false }}">
+              <span aria-label="{{o.timerAria}}" style="{{o.timerStyle}}">{{o.timer}}</span>
+            </sc-if>
+          </div>
+          <span style="font-size: 11px; color: #B9CDBF">{{o.count}} lá</span>
+        </div>
+      </div>
+      <sc-if value="{{o.hasEaten}}" hint-placeholder-val="{{ false }}">
+        <div style="display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; color: #F2B544; padding: 4px 6px; background: rgba(36,20,14,0.88); border-radius: 12px; width: fit-content;">
+          <span>Đã ăn:</span>
+          <sc-for list="{{o.eaten}}" as="e" hint-placeholder-count="1">
+            <div aria-label="{{e.aria}}" style="{{e.style}}">
+              <span style="font-size: 14px; font-weight: 800; line-height: 1">{{e.rank}}</span>
+              <span style="font-size: 15px; line-height: 1">{{e.suit}}</span>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+      <sc-if value="{{o.hasMelds}}" hint-placeholder-val="{{ false }}">
+        <div style="{{o.meldRow}}">
+          <sc-for list="{{o.melds}}" as="m" hint-placeholder-count="1">
+            <div style="display: flex; padding: 2px; border-radius: 6px; background: rgba(179,32,42,0.16)">
+              <sc-for list="{{m.cards}}" as="d" hint-placeholder-count="3">
+                <div style="{{d.style}}">
+                  <span style="font-size: 11px; font-weight: 800; line-height: 1">{{d.rank}}</span>
+                  <span style="font-size: 12px; line-height: 1">{{d.suit}}</span>
+                </div>
+              </sc-for>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+    </div>
+  </sc-for>
+
+  <sc-if value="{{hasToast}}" hint-placeholder-val="{{ false }}">
+    <div role="status" style="position: absolute; left: 466px; top: 84px; transform: translateX(-50%); max-width: 360px; box-sizing: border-box; padding: 5px 14px; border-radius: 14px; background: #2A1810; color: #F4E6C4; font-size: 12px; font-weight: 700; text-align: center">{{toast}}</div>
+  </sc-if>
+
+  <sc-if value="{{hasMyMelds}}" hint-placeholder-val="{{ false }}">
+    <div style="position: absolute; left: 22px; top: 196px; display: flex; flex-direction: column; gap: 4px">
+      <span style="font-size: 11px; color: #8E1F1F; font-weight: 700">Phỏm bạn đã hạ</span>
+      <div style="display: flex; flex-wrap: wrap; gap: 8px; max-width: 280px">
+        <sc-for list="{{myMelds}}" as="m" hint-placeholder-count="1">
+          <div style="display: flex; padding: 2px; border-radius: 6px; background: rgba(179,32,42,0.16)">
+            <sc-for list="{{m.cards}}" as="d" hint-placeholder-count="3">
+              <div style="{{d.style}}">
+                <span style="font-size: 11px; font-weight: 800; line-height: 1">{{d.rank}}</span>
+                <span style="font-size: 12px; line-height: 1">{{d.suit}}</span>
+              </div>
+            </sc-for>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </sc-if>
+
+  <div class="{{mePlaqueClass}}" style="{{mePlaque}}">
+    <div style="{{meRing.ring}}"><div style="{{meAvatar}}">B</div></div>
+    <span style="font-size: 13px; font-weight: 700">Bạn</span>
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 2px">
+      <span aria-label="{{me.scoreAria}}" style="{{me.scoreStyle}}">{{me.score}}</span>
+      <sc-if value="{{me.hasDelta}}" hint-placeholder-val="{{ false }}">
+        <span role="status" aria-label="{{me.deltaAria}}" style="font-size: 11px; font-weight: 800; font-variant-numeric: tabular-nums; color: {{me.deltaColor}}">{{me.delta}}</span>
+      </sc-if>
+    </div>
+    <sc-if value="{{meRing.active}}" hint-placeholder-val="{{ true }}">
+      <span aria-label="{{meRing.timerAria}}" style="{{meRing.timerStyle}}">{{meRing.timer}}</span>
+    </sc-if>
+    <span style="display: flex; align-items: center; gap: 8px; margin-left: 6px; padding: 0 10px; height: 22px; border-radius: 999px; background: #F4E6C4; font-size: 11px; font-weight: 600; color: #3A2414">
+      <span style="display: inline-block; width: 16px; height: 4px; border-radius: 2px; background: #A61C27"></span>phỏm
+      <span style="display: inline-block; width: 16px; height: 0; border-top: 3px dashed #1F6B4A"></span>cạ
+    </span>
+  </div>
+
+  <div style="position: absolute; left: 24px; bottom: 10px; display: flex; align-items: flex-end; height: 108px">
+    <sc-for list="{{hand}}" as="c" hint-placeholder-count="9">
+      <button draggable="true" onDragStart="{{c.dragStart}}" onDragOver="{{c.dragOver}}" onDrop="{{c.drop}}" onClick="{{c.select}}" aria-pressed="{{c.selected}}" aria-label="{{c.aria}}" style="{{c.style}}">
+        <span style="position: absolute; left: 6px; top: 5px; font-size: 18px; font-weight: 800; line-height: 1">{{c.rank}}</span>
+        <span style="position: absolute; left: 7px; top: 26px; font-size: 15px; line-height: 1">{{c.suit}}</span>
+        <span style="position: absolute; right: 6px; bottom: 7px; font-size: 30px; line-height: 1">{{c.suit}}</span>
+        <sc-if value="{{c.eaten}}" hint-placeholder-val="{{ false }}">
+          <span style="position: absolute; right: -4px; top: -6px; padding: 1px 4px; border-radius: 4px; background: #F2B544; color: #1E1A10; font-size: 9px; font-weight: 800">ĂN</span>
+        </sc-if>
+        <span style="{{c.bar}}"></span>
+      </button>
+    </sc-for>
+  </div>
+
+  <div style="position: absolute; left: 400px; bottom: 12px; width: 300px; box-sizing: border-box; padding: 4px; border-radius: 14px; background: rgba(36,20,14,0.9); display: flex; flex-direction: column; gap: 4px">
+    <sc-if value="{{isTake}}" hint-placeholder-val="{{ true }}">
+      <div style="display: flex; gap: 6px">
+        <button onClick="{{sort}}" style="flex: 1; height: 44px; border-radius: 10px; border: 1px solid #6B4A34; background: #3A2418; color: #F4F0E6; font-weight: 700; font-size: 13px; cursor: pointer">Xếp bài</button>
+        <button onClick="{{eat}}" disabled="{{eatDisabled}}" style="{{eatStyle}}">Ăn {{lastRank}}{{lastSuit}}</button>
+        <button onClick="{{draw}}" style="flex: 1; height: 44px; border-radius: 10px; border: 1px solid #F4F0E6; background: #F4F0E6; color: #0E3B2C; font-weight: 800; font-size: 14px; cursor: pointer">Bốc</button>
+      </div>
+    </sc-if>
+    <sc-if value="{{isDiscard}}" hint-placeholder-val="{{ false }}">
+      <div style="display: flex; gap: 6px">
+        <button onClick="{{sort}}" style="flex: 1; height: 44px; border-radius: 10px; border: 1px solid #6B4A34; background: #3A2418; color: #F4F0E6; font-weight: 700; font-size: 13px; cursor: pointer">Xếp bài</button>
+        <button onClick="{{discard}}" disabled="{{discardDisabled}}" style="{{discardStyle}}">{{discardLabel}}</button>
+      </div>
+    </sc-if>
+    <sc-if value="{{isWaiting}}" hint-placeholder-val="{{ false }}">
+      <div style="display: flex; gap: 6px">
+        <button onClick="{{reset}}" style="flex: 1; height: 44px; border-radius: 10px; border: 1px solid #6B4A34; background: #3A2418; color: #F4F0E6; font-weight: 700; font-size: 13px; cursor: pointer">Chơi lại</button>
+        <button onClick="{{startLay}}" style="flex: 1.6; height: 44px; border-radius: 10px; border: 1px dashed #F2B544; background: transparent; color: #F2B544; font-weight: 700; font-size: 13px; cursor: pointer">Sang lượt hạ bài</button>
+      </div>
+    </sc-if>
+    <sc-if value="{{isLayRows}}" hint-placeholder-val="{{ false }}">
+      <div style="display: flex; gap: 6px">
+        <button onClick="{{sort}}" style="flex: 1; height: 44px; border-radius: 10px; border: 1px solid #6B4A34; background: #3A2418; color: #F4F0E6; font-weight: 700; font-size: 13px; cursor: pointer">Xếp bài</button>
+        <button onClick="{{suggest}}" style="flex: 1; height: 44px; border-radius: 10px; border: 1px solid #6B4A34; background: #3A2418; color: #F4F0E6; font-weight: 700; font-size: 13px; cursor: pointer">Gợi ý</button>
+        <button onClick="{{layMeld}}" disabled="{{layDisabled}}" style="{{layStyle}}">{{layLabel}}</button>
+      </div>
+      <div style="display: flex; gap: 6px">
+        <button onClick="{{send}}" disabled="{{sendDisabled}}" style="{{sendStyle}}">{{sendLabel}}</button>
+        <button onClick="{{finishLay}}" disabled="{{finishDisabled}}" style="{{finishStyle}}">{{finishLabel}}</button>
+      </div>
+    </sc-if>
+    <sc-if value="{{showU}}" hint-placeholder-val="{{ false }}">
+      <button onClick="{{declareU}}" style="height: 44px; border-radius: 10px; border: none; background: #F2B544; color: #1E1A10; font-weight: 800; font-size: 15px; cursor: pointer; box-shadow: 0 0 0 3px rgba(242,181,68,0.35)">Hạ bài báo Ù</button>
+    </sc-if>
+    <sc-if value="{{isEnded}}" hint-placeholder-val="{{ false }}">
+      <span style="font-size: 12px; color: #B9CDBF; padding: 0 4px">{{nextLeaderLabel}}</span>
+      <div style="display: flex; gap: 6px">
+        <sc-if value="{{iChooseDirection}}" hint-placeholder-val="{{ true }}">
+          <sc-for list="{{directions}}" as="d" hint-placeholder-count="2">
+            <button onClick="{{d.pick}}" aria-pressed="{{d.pressed}}" style="{{d.style}}">{{d.label}}</button>
+          </sc-for>
+        </sc-if>
+        <button onClick="{{reset}}" style="flex: 1; height: 44px; border-radius: 10px; border: none; background: #F2B544; color: #1E1A10; font-weight: 800; font-size: 13px; cursor: pointer">Ván tiếp</button>
+      </div>
+    </sc-if>
+  </div>
+  <sc-if value="{{isPaused}}" hint-placeholder-val="{{ false }}">
+    <div aria-hidden="true" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; background: rgba(20,10,6,0.62)"></div>
+    <div role="dialog" aria-modal="true" aria-labelledby="pause-title" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 420px; box-sizing: border-box; background: #F4E6C4; color: #2A1810; border-radius: 18px; padding: 20px 22px; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 12px 32px rgba(0,0,0,0.45)">
+      <div style="display: flex; align-items: center; gap: 12px">
+        <div style="width: 44px; height: 44px; border-radius: 22px; background: #2A1810; color: #F2B544; display: flex; align-items: center; justify-content: center; flex-shrink: 0">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"></rect><rect x="14" y="5" width="4" height="14" rx="1"></rect></svg>
+        </div>
+        <div style="display: flex; flex-direction: column">
+          <h2 id="pause-title" style="margin: 0; font-size: 19px; font-weight: 800">{{pauseTitle}}</h2>
+          <span style="font-size: 13px; color: #5C3D2A">{{pauseWho}} · đã dừng <strong style="font-variant-numeric: tabular-nums">{{pauseElapsed}}</strong></span>
+        </div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <div style="display: flex; justify-content: space-between; font-size: 13px">
+          <span style="font-weight: 600">Quỹ tạm dừng cả trận</span>
+          <span style="font-weight: 800; font-variant-numeric: tabular-nums">còn {{pauseRemaining}} / 10:00</span>
+        </div>
+        <div style="height: 8px; border-radius: 4px; background: #DCC9A0; overflow: hidden">
+          <div style="height: 8px; background: {{pauseBarColor}}; width: {{pauseUsedPct}}"></div>
+        </div>
+        <span style="font-size: 12px; color: #5C3D2A">Hết quỹ → kết thúc trận ngay, đóng phòng và lưu bảng điểm vào lịch sử.</span>
+      </div>
+      <div style="display: flex; align-items: center; gap: 8px; font-size: 12px; color: #5C3D2A; background: #E9D7AE; border-radius: 10px; padding: 8px 10px">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
+        {{pauseTurnNote}}
+      </div>
+      <sc-if value="{{canResume}}" hint-placeholder-val="{{ true }}">
+        <button onClick="{{resume}}" style="height: 48px; border-radius: 12px; border: none; background: #2A1810; color: #F4E6C4; font-weight: 800; font-size: 15px; cursor: pointer">Tiếp tục ván</button>
+      </sc-if>
+      <sc-if value="{{mustWait}}" hint-placeholder-val="{{ false }}">
+        <button disabled style="height: 48px; border-radius: 12px; background: transparent; color: #5C3D2A; border: 1px dashed #8A6A50; font-weight: 700; font-size: 14px">Bạn có thể tiếp tục sau {{waitLeft}}</button>
+      </sc-if>
+      <sc-if value="{{pauseExhausted}}" hint-placeholder-val="{{ false }}">
+        <a href="Scoreboard.dc.html" style="display: flex; align-items: center; justify-content: center; height: 48px; border-radius: 12px; background: #B3202A; color: #FFF4E0; font-weight: 800; font-size: 14px; text-decoration: none">Trận kết thúc · xem bảng điểm cuối</a>
+      </sc-if>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"scenario":{"editor":"enum","options":["Vòng 2 · ăn / bốc","Vòng 4 · hạ bài"],"default":"Vòng 2 · ăn / bốc","section":"Kịch bản"},"forceU":{"editor":"boolean","default":false,"section":"Xem trước"},"pauser":{"editor":"enum","options":["Bạn","Lan"],"default":"Bạn","section":"Tạm dừng"},"pauseUsedMin":{"editor":"range","min":0,"max":9,"step":1,"unit":"phút","default":2,"section":"Tạm dừng"},"turnSeconds":{"editor":"range","min":5,"max":35,"step":5,"unit":"s","default":25,"section":"Kịch bản"},"$preview":{"width":932,"height":430}}'>
+const SUIT_SYMBOL = { S: '♠', C: '♣', D: '♦', H: '♥' };
+const SUIT_NAME = { S: 'bích', C: 'tép', D: 'rô', H: 'cơ' };
+const SUIT_ORDER = 'SCDH';
+function rankOf(id) {
+  const r = id.slice(0, -1);
+  if (r === 'A') return 1;
+  if (r === 'J') return 11;
+  if (r === 'Q') return 12;
+  if (r === 'K') return 13;
+  return parseInt(r, 10);
+}
+function suitOf(id) { return id.slice(-1); }
+function label(id) { return id.slice(0, -1) + SUIT_SYMBOL[suitOf(id)]; }
+function cmp(a, b) { return rankOf(a) - rankOf(b) || SUIT_ORDER.indexOf(suitOf(a)) - SUIT_ORDER.indexOf(suitOf(b)); }
+function colorOf(id) { return 'DH'.includes(suitOf(id)) ? '#B42318' : '#1C1C1C'; }
+function mmss(total) {
+  const t = Math.max(0, Math.floor(total));
+  return Math.floor(t / 60) + ':' + (t % 60 < 10 ? '0' : '') + (t % 60);
+}
+function signed(n) { return n > 0 ? '+' + n : n < 0 ? '−' + Math.abs(n) : '0'; }
+function points(cards) { return cards.reduce((s, c) => s + rankOf(c), 0); }
+function combos(arr, k) {
+  if (k === 0) return [[]];
+  if (arr.length < k) return [];
+  const head = arr[0];
+  const tail = arr.slice(1);
+  return combos(tail, k - 1).map((c) => [head].concat(c)).concat(combos(tail, k));
+}
+function isMeld(cards) {
+  if (cards.length < 3) return false;
+  const cs = cards.slice().sort(cmp);
+  if (cs.every((c) => rankOf(c) === rankOf(cs[0]))) {
+    return cs.length <= 4 && new Set(cs.map(suitOf)).size === cs.length;
+  }
+  return cs.every((c, i) => suitOf(c) === suitOf(cs[0]) && rankOf(c) === rankOf(cs[0]) + i);
+}
+function candidateMelds(hand) {
+  const out = [];
+  const groups = {};
+  hand.forEach((c) => { (groups[rankOf(c)] = groups[rankOf(c)] || []).push(c); });
+  Object.values(groups).forEach((g) => { [3, 4].forEach((k) => combos(g, k).forEach((m) => out.push(m))); });
+  SUIT_ORDER.split('').forEach((s) => {
+    const cs = hand.filter((c) => suitOf(c) === s).sort(cmp);
+    for (let i = 0; i < cs.length; i++) {
+      for (let j = i + 2; j < cs.length; j++) {
+        if (rankOf(cs[j]) - rankOf(cs[i]) !== j - i) break;
+        out.push(cs.slice(i, j + 1));
+      }
+    }
+  });
+  return out;
+}
+function bestArrangement(hand, eaten) {
+  const cands = candidateMelds(hand).filter((m) => m.filter((c) => eaten.includes(c)).length <= 1);
+  let best = { score: -1, melds: [] };
+  const used = new Set();
+  const chosen = [];
+  const dfs = (start) => {
+    if (eaten.every((c) => used.has(c))) {
+      const score = chosen.reduce((s, m) => s + points(m), 0);
+      if (score > best.score) best = { score, melds: chosen.slice() };
+    }
+    for (let i = start; i < cands.length; i++) {
+      const m = cands[i];
+      if (m.some((c) => used.has(c))) continue;
+      m.forEach((c) => used.add(c));
+      chosen.push(m);
+      dfs(i + 1);
+      chosen.pop();
+      m.forEach((c) => used.delete(c));
+    }
+  };
+  dfs(0);
+  return best;
+}
+function isPair(a, b) {
+  return rankOf(a) === rankOf(b) || (suitOf(a) === suitOf(b) && Math.abs(rankOf(a) - rankOf(b)) <= 2);
+}
+function classify(hand, eaten) {
+  const best = bestArrangement(hand, eaten);
+  const inMeld = new Set([].concat(...best.melds));
+  const rest = hand.filter((c) => !inMeld.has(c)).sort(cmp);
+  const pairs = [];
+  const taken = new Set();
+  rest.forEach((c, i) => {
+    if (taken.has(c)) return;
+    const mate = rest.slice(i + 1).find((d) => !taken.has(d) && isPair(c, d));
+    if (mate) { taken.add(c); taken.add(mate); pairs.push([c, mate]); }
+  });
+  const singles = rest.filter((c) => !taken.has(c));
+  const melds = best.melds.map((m) => m.slice().sort(cmp)).sort((a, b) => cmp(a[0], b[0]));
+  return { best, melds, pairs, singles, inMeld, inPair: taken };
+}
+const NAMES = ['Bạn', 'Lan', 'Tuấn', 'Hùng'];
+const BEFORE = { 'Bạn': 5, 'Lan': -5, 'Tuấn': 25, 'Hùng': -25 };
+const ROUND2 = {
+  scenario: 'round2', round: 2, phase: 'take',
+  hand: ['KD', '3S', '8D', 'QH', '2C', '5S', '8C', '4S', 'JH'],
+  eaten: [], selected: [], drag: null,
+  my: ['KS'], lan: ['KC', '10D'], tuan: ['AH', '9S'], hung: ['QC', '8H'],
+  table: { 'Lan': [], 'Tuấn': [], 'Hùng': [] }, myMelds: [],
+  counts: { 'Lan': 9, 'Tuấn': 9, 'Hùng': 9 }, tuanEaten: ['7C'],
+  deck: 9, draws: ['6S', '9D'], toast: 'Lượt của bạn: Ăn hoặc Bốc',
+  ended: false, delta: null, showDelta: false, winner: null, dir: 'ccw',
+};
+const LAY = {
+  scenario: 'lay', round: 4, phase: 'lay',
+  hand: ['KD', '3S', '8D', 'QH', '9C', '5S', '8C', '4S', '4H', '8H'],
+  eaten: ['8H'], selected: [], drag: null,
+  my: ['KS', '9D', 'JC'], lan: ['KC', '10D', 'AH', '2C'], tuan: ['AS', '9H', '7S', '3C'], hung: ['2S', '6C', '10H', 'JD'],
+  table: { 'Lan': [['5H', '6H', '7H'], ['QS', 'QC', 'QD']], 'Tuấn': [['2D', '3D', '4D']], 'Hùng': [['9S', '10S', 'JS']] },
+  myMelds: [], counts: { 'Lan': 3, 'Tuấn': 4, 'Hùng': 3 }, tuanEaten: [],
+  deck: 1, draws: [], toast: 'Lượt hạ bài: chọn các lá muốn hạ thành phỏm',
+  ended: false, delta: null, showDelta: false, winner: null, dir: 'ccw',
+};
+const OTHER_POINTS = { 'Lan': 17, 'Tuấn': 23, 'Hùng': 31 };
+function fresh(scenario) {
+  const base = scenario === 'Vòng 4 · hạ bài' ? LAY : ROUND2;
+  return JSON.parse(JSON.stringify(base));
+}
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = Object.assign(fresh(props.scenario), { timeLeft: props.turnSeconds ?? 25 });
+  }
+  componentDidMount() {
+    this.ticker = setInterval(() => this.tick(), 1000);
+  }
+  pauseUsed() {
+    return (this.props.pauseUsedMin ?? 2) * 60 + (this.state.pauseSpent || 0);
+  }
+  pause() {
+    if (this.state.paused) return;
+    this.setState({ paused: true, pauseElapsed: 0, pauser: this.props.pauser === 'Lan' ? 'Lan' : 'Bạn' });
+  }
+  resume() {
+    const s = this.state;
+    this.setState({ paused: false, pauseSpent: (s.pauseSpent || 0) + s.pauseElapsed, pauseElapsed: 0 });
+  }
+  turnSeconds() {
+    return this.props.turnSeconds ?? 25;
+  }
+  tick() {
+    const s = this.state;
+    if (s.paused) {
+      if (this.pauseUsed() + s.pauseElapsed < 600) this.setState({ pauseElapsed: s.pauseElapsed + 1 });
+      return;
+    }
+    if (s.ended || s.phase === 'wait') return;
+    if (s.timeLeft > 1) {
+      this.setState({ timeLeft: s.timeLeft - 1 });
+      return;
+    }
+    this.setState({ timeLeft: 0 });
+    this.autoPlay();
+  }
+  autoPick(hand) {
+    const eaten = this.state.eaten.filter((c) => hand.includes(c));
+    const best = bestArrangement(hand, eaten);
+    const inMeld = new Set([].concat(...best.melds));
+    const free = hand.filter((c) => !eaten.includes(c)).sort(cmp);
+    const loose = free.filter((c) => !inMeld.has(c));
+    return (loose.length ? loose : free).slice(-1)[0];
+  }
+  autoPlay() {
+    const s = this.state;
+    if (s.phase === 'lay') {
+      const best = bestArrangement(s.hand, this.unlaidEaten());
+      const laid = best.melds.map((m) => m.slice().sort(cmp));
+      const inMeld = new Set([].concat(...laid));
+      const left = s.hand.filter((c) => !inMeld.has(c));
+      const card = left.slice().sort(cmp).pop();
+      if (!card) {
+        this.declareU();
+        return;
+      }
+      this.closeLay(left, s.myMelds.concat(laid), card, 'Hết giờ · tự hạ, đánh ' + label(card) + ' · ');
+      return;
+    }
+    const drawn = s.phase === 'take' ? s.draws[0] : null;
+    const hand = drawn ? s.hand.concat([drawn]) : s.hand;
+    const card = this.autoPick(hand);
+    this.setState({
+      hand: hand.filter((c) => c !== card), my: s.my.concat([card]),
+      draws: drawn ? s.draws.slice(1) : s.draws, deck: drawn ? s.deck - 1 : s.deck,
+      phase: 'wait', selected: [],
+      toast: 'Hết giờ · ' + (drawn ? 'tự bốc ' + label(drawn) + ', ' : '') + 'đánh ' + label(card) + ' (lá ngoài phỏm)',
+    });
+  }
+  componentDidUpdate(prev) {
+    if (prev.scenario !== this.props.scenario) this.restart(fresh(this.props.scenario));
+  }
+  componentWillUnmount() {
+    clearTimeout(this.deltaTimer);
+    clearInterval(this.ticker);
+  }
+  restart(next) {
+    clearTimeout(this.deltaTimer);
+    this.setState(Object.assign(next, { timeLeft: this.turnSeconds() }));
+  }
+  endGame(delta, winner, toast) {
+    clearTimeout(this.deltaTimer);
+    this.setState({ ended: true, delta, winner, toast, selected: [], showDelta: true });
+    this.deltaTimer = setTimeout(() => this.setState({ showDelta: false }), 3000);
+  }
+  eatAdjust(delta) {
+    if (this.state.eaten.length) { delta['Bạn'] += 5; delta['Hùng'] -= 5; }
+    return delta;
+  }
+  declareU() {
+    const delta = this.eatAdjust({ 'Bạn': 75, 'Lan': -25, 'Tuấn': -25, 'Hùng': -25 });
+    const s = this.state;
+    const gui = s.scenario === 'lay' && Object.values(s.table).some((ms) => ms.some((m) => m.length > 3));
+    this.endGame(delta, 'Bạn', gui ? 'Bạn Ù gửi! Mỗi nhà trả 25' : 'Bạn Ù! Mỗi nhà trả 25');
+  }
+  scoreView(name) {
+    const s = this.state;
+    const delta = s.ended && s.delta ? s.delta[name] : 0;
+    const total = BEFORE[name] + delta;
+    return {
+      score: signed(total),
+      scoreAria: 'Tổng điểm ' + signed(total),
+      scoreStyle: 'font-size: 12px; font-weight: 800; padding: 1px 7px; border-radius: 999px; font-variant-numeric: tabular-nums; line-height: 16px; ' +
+        (total > 0 ? 'background: #8EE3B0; color: #0E3B2C;' : total < 0 ? 'background: #FFB4A2; color: #4A120A;' : 'background: #F4F0E6; color: #0E3B2C;'),
+      hasDelta: s.ended && s.showDelta,
+      delta: signed(delta),
+      deltaAria: 'Điểm ván vừa rồi ' + signed(delta),
+      deltaColor: delta > 0 ? '#8EE3B0' : delta < 0 ? '#FFB4A2' : '#B9CDBF',
+    };
+  }
+  plaqueStyle(active, extra) {
+    return extra + 'display: flex; align-items: center; gap: 8px; padding: 2px 8px 2px 2px; background: rgba(36,20,14,0.88); border-radius: 14px; width: fit-content; border: 2px solid ' +
+      (active ? '#F2B544; box-shadow: 0 0 0 3px rgba(242,181,68,0.4), 0 0 14px rgba(242,181,68,0.7);' : 'transparent;');
+  }
+  ringView(active, size) {
+    const s = this.state;
+    const total = this.turnSeconds();
+    const left = s.phase === 'wait' ? total : s.timeLeft;
+    const pct = Math.max(0, Math.min(100, (left / total) * 100));
+    const color = left <= 5 ? '#FF8A70' : '#F2B544';
+    const outer = size + 8;
+    return {
+      active,
+      timer: left + 's',
+      timerAria: 'Còn ' + left + ' giây',
+      timerStyle: 'font-size: 11px; font-weight: 800; padding: 1px 6px; border-radius: 999px; font-variant-numeric: tabular-nums; line-height: 16px; background: ' + color + '; color: #1E1A10;',
+      ring: 'width: ' + outer + 'px; height: ' + outer + 'px; border-radius: 50%; padding: 4px; box-sizing: border-box; flex-shrink: 0; background: ' +
+        (active ? 'conic-gradient(' + color + ' ' + pct.toFixed(1) + '%, rgba(244,230,196,0.16) 0)' : 'transparent') + ';',
+    };
+  }
+  mini(id, highlight, first, vertical, big) {
+    const w = big ? 36 : 28;
+    const h = big ? 52 : 40;
+    const overlap = first ? '' : vertical ? 'margin-top: -' + (big ? 31 : 24) + 'px; ' : 'margin-left: -' + (big ? 16 : 12) + 'px; ';
+    return {
+      rank: id.slice(0, -1), suit: SUIT_SYMBOL[suitOf(id)],
+      style: 'flex-shrink: 0; width: ' + w + 'px; height: ' + h + 'px; ' + overlap + 'padding: ' + (big ? '5px 0 0 4px' : '4px 0 0 3px') + '; box-sizing: border-box; border-radius: 5px; background: #FBF8F1; display: flex; flex-direction: ' + (vertical ? 'row' : 'column') + '; align-items: flex-start; gap: 1px; box-shadow: ' + (vertical ? '0 -1px 3px' : '-1px 0 3px') + ' rgba(0,0,0,0.22); color: ' + colorOf(id) + '; ' +
+        (highlight ? 'border: 2px solid #B3202A; box-shadow: 0 0 0 3px rgba(179,32,42,0.3);' : 'border: 1px solid #C9B48A;'),
+    };
+  }
+  unlaidEaten() {
+    return this.state.eaten.filter((c) => this.state.hand.includes(c));
+  }
+  sendTarget(card) {
+    const table = this.state.table;
+    for (const owner of Object.keys(table)) {
+      for (let i = 0; i < table[owner].length; i++) {
+        if (isMeld(table[owner][i].concat([card]))) return { owner, index: i };
+      }
+    }
+    return null;
+  }
+  eat() {
+    const s = this.state;
+    const card = s.hung[s.hung.length - 1];
+    const moved = s.lan[s.lan.length - 1];
+    this.setState({
+      hand: s.hand.concat([card]), eaten: s.eaten.concat([card]), phase: 'discard',
+      hung: s.hung.slice(0, -1).concat([moved]), lan: s.lan.slice(0, -1),
+      toast: 'Ăn ' + label(card) + ' của Hùng · chuyển ' + label(moved) + ' của Lan sang Hùng',
+    });
+  }
+  draw() {
+    const s = this.state;
+    this.setState({ hand: s.hand.concat([s.draws[0]]), draws: s.draws.slice(1), deck: s.deck - 1, phase: 'discard', toast: 'Bốc ' + label(s.draws[0]) + ' · chọn 1 lá để đánh' });
+  }
+  discard() {
+    const s = this.state;
+    const card = s.selected[0];
+    if (!card || s.eaten.includes(card)) return;
+    this.setState({ hand: s.hand.filter((c) => c !== card), my: s.my.concat([card]), selected: [], phase: 'wait', toast: 'Lượt của Lan' });
+  }
+  layMeld() {
+    const s = this.state;
+    const sel = s.selected;
+    if (!isMeld(sel) || sel.filter((c) => s.eaten.includes(c)).length > 1) return;
+    this.setState({
+      myMelds: s.myMelds.concat([sel.slice().sort(cmp)]),
+      hand: s.hand.filter((c) => !sel.includes(c)), selected: [],
+      toast: 'Đã hạ phỏm ' + sel.slice().sort(cmp).map(label).join(' '),
+    });
+  }
+  send() {
+    const s = this.state;
+    const card = s.selected[0];
+    const target = s.selected.length === 1 ? this.sendTarget(card) : null;
+    if (!target || s.eaten.includes(card)) return;
+    const table = JSON.parse(JSON.stringify(s.table));
+    table[target.owner][target.index] = table[target.owner][target.index].concat([card]).sort(cmp);
+    this.setState({ table, hand: s.hand.filter((c) => c !== card), selected: [], toast: 'Gửi ' + label(card) + ' vào phỏm của ' + target.owner });
+  }
+  suggest() {
+    const s = this.state;
+    const eaten = this.unlaidEaten();
+    const best = bestArrangement(s.hand, eaten);
+    const pick = best.melds.find((m) => m.some((c) => eaten.includes(c))) || best.melds.slice().sort((a, b) => points(b) - points(a))[0];
+    if (pick) {
+      this.setState({ selected: pick.slice(), toast: 'Gợi ý: hạ ' + pick.slice().sort(cmp).map(label).join(' ') });
+      return;
+    }
+    const sendable = s.hand.find((c) => !s.eaten.includes(c) && this.sendTarget(c));
+    if (sendable) {
+      this.setState({ selected: [sendable], toast: 'Gợi ý: gửi ' + label(sendable) + ' vào phỏm của ' + this.sendTarget(sendable).owner });
+      return;
+    }
+    const worst = s.hand.filter((c) => !s.eaten.includes(c)).sort(cmp).pop();
+    this.setState({ selected: worst ? [worst] : [], toast: worst ? 'Gợi ý: đánh ' + label(worst) + ' (điểm cao nhất)' : '' });
+  }
+  finishLay() {
+    const s = this.state;
+    const card = s.selected[0];
+    if (s.selected.length !== 1 || s.eaten.includes(card) || this.unlaidEaten().length) return;
+    this.closeLay(s.hand, s.myMelds, card, '');
+  }
+  closeLay(hand, myMelds, card, prefix) {
+    const s = this.state;
+    const rest = hand.filter((c) => c !== card);
+    const mom = myMelds.length === 0;
+    const pts = Object.assign({ 'Bạn': points(rest) }, OTHER_POINTS);
+    const key = (n) => (n === 'Bạn' && mom ? 1000 : 0) + pts[n];
+    const order = NAMES.slice().sort((a, b) => key(a) - key(b));
+    const winner = order[0];
+    const delta = { 'Bạn': 0, 'Lan': 0, 'Tuấn': 0, 'Hùng': 0 };
+    let place = 0;
+    order.slice(1).forEach((n) => {
+      const amount = n === 'Bạn' && mom ? 20 : 5 * ++place;
+      delta[n] -= amount;
+      delta[winner] += amount;
+    });
+    this.setState({ hand: rest, my: s.my.concat([card]), myMelds });
+    this.endGame(this.eatAdjust(delta), winner, prefix + 'Ván kết thúc · ' + (winner === 'Bạn' ? 'Bạn' : winner) + ' về Nhất · rác của bạn ' + points(rest) + ' điểm');
+  }
+  move(from, to) {
+    const hand = this.state.hand.slice();
+    const i = hand.indexOf(from);
+    const j = hand.indexOf(to);
+    if (i < 0 || j < 0 || i === j) return;
+    hand.splice(i, 1);
+    hand.splice(j, 0, from);
+    this.setState({ hand, drag: null });
+  }
+  toggle(id) {
+    const s = this.state;
+    if (s.ended) return;
+    if (s.phase === 'discard') {
+      this.setState({ selected: s.selected[0] === id ? [] : [id] });
+    } else if (s.phase === 'lay') {
+      this.setState({ selected: s.selected.includes(id) ? s.selected.filter((c) => c !== id) : s.selected.concat([id]) });
+    }
+  }
+  button(enabled, primary) {
+    return 'flex: 1; height: 44px; padding: 0 4px; border-radius: 10px; font-weight: 800; font-size: 13px; ' +
+      (!enabled ? 'background: transparent; color: #B9CDBF; border: 1px dashed #6B4A34;'
+        : primary ? 'cursor: pointer; background: #F4F0E6; color: #0E3B2C; border: 1px solid #F4F0E6;'
+          : 'cursor: pointer; background: #F2B544; color: #1E1A10; border: 1px solid #F2B544;');
+  }
+  renderVals() {
+    const s = this.state;
+    const eatenLeft = this.unlaidEaten();
+    const cls = classify(s.hand, eatenLeft);
+    const live = !s.ended;
+    const lay = live && s.phase === 'lay';
+    const waiting = live && s.phase === 'wait';
+    const myTurn = live && !waiting;
+    const hand = s.hand.map((id, idx) => {
+      const selected = s.selected.includes(id);
+      const isEaten = s.eaten.includes(id);
+      const kind = cls.inMeld.has(id) ? 'phom' : cls.inPair.has(id) ? 'ca' : 'rac';
+      return {
+        rank: id.slice(0, -1), suit: SUIT_SYMBOL[suitOf(id)], eaten: isEaten,
+        selected: String(selected),
+        aria: id.slice(0, -1) + ' ' + SUIT_NAME[suitOf(id)] + (isEaten ? ', lá đã ăn' : '') + (kind === 'phom' ? ', trong phỏm' : kind === 'ca' ? ', cạ' : ''),
+        style: 'position: relative; flex-shrink: 0; width: 66px; height: 96px; margin-left: ' + (idx ? '-33px' : '0') + '; padding: 0; box-sizing: border-box; border-radius: 8px; background: #FBF8F1; cursor: grab; box-shadow: -2px 0 5px rgba(0,0,0,0.22); color: ' + colorOf(id) + '; ' +
+          'border: ' + (selected ? '3px solid #F2B544' : '1px solid #D8D2C4') + '; transform: translateY(' + (selected ? '-12px' : '0') + '); transition: transform 120ms;',
+        bar: kind === 'phom'
+          ? 'position: absolute; left: 4px; width: 26px; bottom: -9px; height: 4px; border-radius: 2px; background: #A61C27;'
+          : kind === 'ca'
+            ? 'position: absolute; left: 4px; width: 26px; bottom: -9px; height: 0; border-top: 3px dashed #1F6B4A;'
+            : 'display: none;',
+        select: () => this.toggle(id),
+        dragStart: () => this.setState({ drag: id }),
+        dragOver: (e) => { e.preventDefault(); },
+        drop: (e) => { e.preventDefault(); if (s.drag) this.move(s.drag, id); },
+      };
+    });
+    const last = s.hung[s.hung.length - 1];
+    const lastEatable = live && s.phase === 'take' && last === '8H';
+    const meldView = (m) => ({ cards: m.map((c, i) => this.mini(c, false, i === 0)) });
+    const pile = (cards, at, vertical, hl, owner) => ({
+      aria: 'Bài đánh của ' + owner,
+      style: 'position: absolute; ' + at + ' transform: translate(-50%, -50%); display: flex; flex-direction: ' + (vertical ? 'column' : 'row') + '; padding: 2px; border-radius: 8px; background: rgba(36,20,14,0.3); min-width: 36px; min-height: 52px;',
+      cards: cards.map((d, i) => this.mini(d, hl && i === cards.length - 1, i === 0, vertical, true)),
+    });
+    const opp = (name, initials, pos, meldRow, active, eaten) => ({
+      name, initials, pos, meldRow, count: s.counts[name], ...this.scoreView(name),
+      ...this.ringView(active, 36),
+      plaque: this.plaqueStyle(active, ''),
+      plaqueClass: active ? 'turn-glow' : '',
+      hasEaten: eaten.length > 0,
+      eaten: eaten.map((e) => {
+        const v = this.mini(e, false, true, false, true);
+        return Object.assign(v, { aria: 'Lá đã ăn ' + label(e), style: v.style + ' border: 2px solid #F2B544;' });
+      }),
+      hasMelds: s.table[name].length > 0,
+      melds: s.table[name].map(meldView),
+      avatar: 'width: 36px; height: 36px; border-radius: 18px; background: #F4F0E6; color: #0E3B2C; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 15px; flex-shrink: 0;',
+    });
+    const col = 'position: absolute; display: flex; flex-direction: column; gap: 5px; ';
+    const sel = s.selected;
+    const canLay = lay && isMeld(sel) && sel.filter((c) => s.eaten.includes(c)).length <= 1;
+    const target = lay && sel.length === 1 && !s.eaten.includes(sel[0]) ? this.sendTarget(sel[0]) : null;
+    const canFinish = lay && sel.length === 1 && !s.eaten.includes(sel[0]) && eatenLeft.length === 0;
+    const discardOk = sel.length === 1 && !s.eaten.includes(sel[0]);
+    const canU = live && ((s.phase !== 'lay' && s.hand.length === 10 && s.hand.length - cls.inMeld.size <= 1) ||
+      (s.phase === 'lay' && eatenLeft.length === 0 && s.myMelds.length > 0 && s.hand.length <= 1));
+    const iWon = s.winner === 'Bạn';
+    const pauseUsed = this.pauseUsed() + (s.pauseElapsed || 0);
+    const exhausted = pauseUsed >= 600;
+    const canResume = !!s.paused && !exhausted && (s.pauser === 'Bạn' || s.pauseElapsed >= 60);
+    return {
+      isPaused: !!s.paused,
+      pause: () => this.pause(),
+      resume: () => this.resume(),
+      pauseTitle: exhausted ? 'Hết quỹ tạm dừng' : 'Ván đang tạm dừng',
+      pauseWho: s.pauser === 'Lan' ? 'Lan đã tạm dừng' : 'Bạn đã tạm dừng',
+      pauseElapsed: mmss(s.pauseElapsed || 0),
+      pauseRemaining: mmss(600 - pauseUsed),
+      pauseUsedPct: Math.min(100, (pauseUsed / 600) * 100).toFixed(1) + '%',
+      pauseBarColor: pauseUsed >= 480 ? '#B3202A' : '#2A1810',
+      pauseTurnNote: s.ended ? 'Ván đã kết thúc.' : waiting ? 'Đồng hồ lượt đã dừng: lượt của Lan.' : 'Đồng hồ lượt đã dừng: lượt của bạn còn ' + s.timeLeft + ' giây.',
+      canResume,
+      mustWait: !!s.paused && !exhausted && !canResume,
+      waitLeft: mmss(60 - (s.pauseElapsed || 0)),
+      pauseExhausted: exhausted,
+      roundLabel: waiting ? 3 : s.round,
+      opponents: [
+        opp('Hùng', 'H', col + 'left: 28px; top: 62px;', 'display: flex; flex-wrap: wrap; gap: 4px; max-width: 250px;', false, []),
+        opp('Tuấn', 'T', col + 'right: 28px; top: 62px; align-items: flex-end;', 'display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 4px; max-width: 170px;', false, s.tuanEaten),
+        opp('Lan', 'L', col + 'right: 28px; bottom: 22px; flex-direction: column-reverse; align-items: flex-end;', 'display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 4px; max-width: 170px;', waiting, []),
+      ],
+      piles: [
+        pile(s.hung, 'left: 326px; top: 215px;', true, lastEatable, 'Hùng'),
+        pile(s.tuan, 'left: 466px; top: 140px;', false, false, 'Tuấn'),
+        pile(s.lan, 'left: 606px; top: 215px;', true, false, 'Lan'),
+        pile(s.my, 'left: 466px; top: 290px;', false, false, 'bạn'),
+      ],
+      deckCount: s.deck,
+      deckAria: 'Nọc còn ' + s.deck + ' lá',
+      lastAria: 'Hùng vừa đánh ' + label(last),
+      hasLastDiscard: live && s.phase === 'take',
+      lastRank: last.slice(0, -1), lastSuit: SUIT_SYMBOL[suitOf(last)], lastColor: colorOf(last),
+      hasMyMelds: s.myMelds.length > 0,
+      myMelds: s.myMelds.map(meldView),
+      hand,
+      hasToast: !!s.toast, toast: s.toast,
+      me: this.scoreView('Bạn'),
+      meAvatar: 'width: 28px; height: 28px; border-radius: 14px; background: #F4F0E6; color: #0E3B2C; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 13px; flex-shrink: 0;',
+      meRing: this.ringView(myTurn, 28),
+      mePlaque: this.plaqueStyle(myTurn, 'position: absolute; left: 22px; top: 264px; '),
+      mePlaqueClass: myTurn ? 'turn-glow' : '',
+      isTake: live && s.phase === 'take', isDiscard: live && s.phase === 'discard', isWaiting: waiting, isLay: lay, isEnded: s.ended,
+      isLayRows: lay && !((this.props.forceU ?? false) || canU),
+      turnLabel: s.ended ? 'Ván kết thúc' : waiting ? 'Lượt của Lan' : s.phase === 'take' ? 'Lượt của bạn · Ăn hoặc bốc' : lay ? 'Lượt hạ bài · chọn lá' : 'Chọn 1 lá để đánh',
+      turnColor: myTurn ? '#F2B544' : '#B9CDBF',
+      timerLabel: s.ended ? '' : waiting ? this.turnSeconds() + 's' : s.timeLeft + 's',
+      timerWidth: s.ended ? '0%' : waiting ? '100%' : Math.round((s.timeLeft / this.turnSeconds()) * 100) + '%',
+      timerColor: !waiting && s.timeLeft <= 5 ? '#FFB4A2' : '#F2B544',
+      eat: () => this.eat(),
+      draw: () => this.draw(),
+      discard: () => this.discard(),
+      layMeld: () => this.layMeld(),
+      send: () => this.send(),
+      suggest: () => this.suggest(),
+      finishLay: () => this.finishLay(),
+      declareU: () => this.declareU(),
+      startLay: () => this.restart(fresh('Vòng 4 · hạ bài')),
+      reset: () => this.restart(fresh(s.scenario === 'lay' ? 'Vòng 4 · hạ bài' : 'Vòng 2 · ăn / bốc')),
+      sort: () => this.setState({ hand: [].concat(cls.singles, [].concat(...cls.pairs), [].concat(...cls.melds)) }),
+      eatDisabled: !lastEatable,
+      eatStyle: this.button(lastEatable, false),
+      discardDisabled: !discardOk,
+      discardLabel: sel.length === 1 && s.eaten.includes(sel[0]) ? 'Không được đánh lá đã ăn' : sel.length === 1 ? 'Đánh ' + label(sel[0]) : 'Chọn lá để đánh',
+      discardStyle: this.button(discardOk, true),
+      layDisabled: !canLay,
+      layLabel: 'Hạ phỏm' + (sel.length ? ' (' + sel.length + ')' : ''),
+      layStyle: this.button(canLay, false),
+      sendDisabled: !target,
+      sendLabel: target ? 'Gửi → ' + target.owner : 'Gửi',
+      sendStyle: this.button(!!target, false),
+      finishDisabled: !canFinish,
+      finishLabel: canFinish ? 'Đánh ' + label(sel[0]) + ' · hạ xong' : eatenLeft.length ? 'Hạ phỏm có lá ăn trước' : 'Chọn 1 lá để đánh',
+      finishStyle: this.button(canFinish, true),
+      showU: live && ((this.props.forceU ?? false) || canU),
+      nextLeaderLabel: iWon ? 'Bạn đi đầu ván sau · chọn người đánh sau bạn:' : (s.winner || '') + ' đi đầu ván sau và chọn người đánh tiếp.',
+      iChooseDirection: iWon,
+      directions: [['ccw', 'Lan'], ['cw', 'Hùng']].map(([key, text]) => ({
+        label: text, pressed: String(s.dir === key), pick: () => this.setState({ dir: key }),
+        style: 'flex: 1; height: 44px; border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer; ' +
+          (s.dir === key ? 'background: #F4F0E6; color: #0E3B2C; border: 1px solid #F4F0E6;' : 'background: transparent; color: #F4F0E6; border: 1px solid #6B4A34;'),
+      })),
+    };
+  }
+}
+</script>
+</body>
+</html>

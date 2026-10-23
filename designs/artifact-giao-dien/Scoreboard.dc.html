@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Bảng điểm và lịch sử</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#F2B544}a:hover{color:#FFD27A}
+button{font-family:inherit}
+</style>
+</helmet>
+<div style="width: 932px; height: 430px; box-sizing: border-box; background: #0E3B2C; color: #F4F0E6; font-family: 'Be Vietnam Pro', system-ui, sans-serif; padding: 14px 20px; display: flex; flex-direction: column; gap: 10px">
+  <div style="display: flex; align-items: center; gap: 10px">
+    <a href="{{backHref}}" aria-label="Quay lại" style="display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 8px; color: #F4F0E6; text-decoration: none">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"></path></svg>
+    </a>
+    <div role="tablist" style="display: flex; gap: 4px; background: #0A2F23; border-radius: 12px; padding: 4px">
+      <sc-for list="{{tabs}}" as="t" hint-placeholder-count="2">
+        <button role="tab" aria-selected="{{t.selected}}" onClick="{{t.pick}}" style="{{t.style}}">{{t.label}}</button>
+      </sc-for>
+    </div>
+    <span style="flex: 1"></span>
+    <span style="font-size: 12px; color: #B9CDBF">Phòng 2481 · Base 5 · 3 ván</span>
+  </div>
+
+  <sc-if value="{{ended}}" hint-placeholder-val="{{ false }}">
+    <div role="status" style="display: flex; align-items: center; gap: 10px; background: #F4F0E6; color: #0E3B2C; border-radius: 12px; padding: 8px 12px; font-size: 13px">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 8v5M12 16v.5"></path></svg>
+      <span><strong>Trận đã kết thúc:</strong> tạm dừng quá 10 phút. Bảng điểm dưới đây là kết quả cuối cùng và đã lưu vào lịch sử.</span>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{isBoard}}" hint-placeholder-val="{{ true }}">
+    <div style="flex: 1; min-height: 0; display: flex; gap: 12px">
+      <div style="width: 270px; flex-shrink: 0; display: flex; flex-direction: column; gap: 6px">
+        <sc-for list="{{standings}}" as="p" hint-placeholder-count="4">
+          <div style="{{p.style}}">
+            <span style="width: 28px; height: 28px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; background: #0E3B2C; color: #F4F0E6; border: 1px solid #3B7E64">{{p.place}}</span>
+            <span style="flex: 1; font-size: 15px; font-weight: 700">{{p.name}}</span>
+            <span style="font-size: 20px; font-weight: 800; font-variant-numeric: tabular-nums; color: {{p.color}}">{{p.total}}</span>
+          </div>
+        </sc-for>
+        <span style="font-size: 12px; color: #8EE3B0; font-weight: 600; padding-left: 4px">Tổng 4 người = 0 ✓</span>
+      </div>
+      <div style="flex: 1; min-width: 0; background: #145039; border: 1px solid #2C7158; border-radius: 14px; overflow: hidden">
+        <div style="display: grid; grid-template-columns: 1.2fr repeat(3, minmax(0, 1fr)) 1fr; gap: 6px; padding: 8px 14px; font-size: 11px; font-weight: 700; color: #B9CDBF; text-transform: uppercase; letter-spacing: 0.04em; border-bottom: 1px solid #2C7158">
+          <span>Người chơi</span><span style="text-align: right">Ván 1</span><span style="text-align: right">Ván 2</span><span style="text-align: right">Ván 3</span><span style="text-align: right">Tổng</span>
+        </div>
+        <sc-for list="{{grid}}" as="g" hint-placeholder-count="4">
+          <div style="display: grid; grid-template-columns: 1.2fr repeat(3, minmax(0, 1fr)) 1fr; gap: 6px; padding: 10px 14px; font-size: 14px; border-bottom: 1px solid #1F5A44; font-variant-numeric: tabular-nums">
+            <span style="font-weight: 700">{{g.name}}</span>
+            <sc-for list="{{g.cells}}" as="c" hint-placeholder-count="3">
+              <span style="text-align: right; color: {{c.color}}">{{c.text}}</span>
+            </sc-for>
+            <span style="text-align: right; font-weight: 800">{{g.total}}</span>
+          </div>
+        </sc-for>
+        <div style="padding: 8px 14px; font-size: 12px; color: #B9CDBF">Ván 1: Tuấn Nhất, Lan ăn chốt của Bạn · Ván 2: Bạn Nhất, Lan Móm · Ván 3: Bạn Nhất, Lan ăn chốt của Tuấn</div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{isHistory}}" hint-placeholder-val="{{ false }}">
+    <div style="flex: 1; min-height: 0; background: #145039; border: 1px solid #2C7158; border-radius: 14px; overflow: hidden; display: flex; flex-direction: column">
+      <div style="display: grid; grid-template-columns: 1fr 0.8fr 0.6fr 1.3fr 1.4fr 0.8fr; gap: 8px; padding: 8px 14px; font-size: 11px; font-weight: 700; color: #B9CDBF; text-transform: uppercase; letter-spacing: 0.04em; border-bottom: 1px solid #2C7158">
+        <span>Ngày</span><span>Phòng</span><span>Số ván</span><span>Người nhất</span><span>Kết thúc</span><span style="text-align: right">Bạn</span>
+      </div>
+      <sc-for list="{{history}}" as="h" hint-placeholder-count="4">
+        <div style="display: grid; grid-template-columns: 1fr 0.8fr 0.6fr 1.3fr 1.4fr 0.8fr; gap: 8px; padding: 11px 14px; font-size: 14px; border-bottom: 1px solid #1F5A44; font-variant-numeric: tabular-nums">
+          <span>{{h.date}}</span><span>#{{h.room}}</span><span>{{h.games}}</span><span style="font-weight: 700">{{h.winner}}</span><span style="font-size: 13px; color: #B9CDBF">{{h.reason}}</span>
+          <span style="text-align: right; font-weight: 800; color: {{h.color}}">{{h.mine}}</span>
+        </div>
+      </sc-for>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"ended":{"editor":"boolean","default":false,"section":"Trạng thái"},"$preview":{"width":932,"height":430}}'>
+const GAMES = {
+  'Bạn': [-30, 35, 35],
+  'Lan': [15, -20, 15],
+  'Tuấn': [30, -5, -35],
+  'Hùng': [-15, -10, -15],
+};
+function signed(n) { return n > 0 ? '+' + n : n < 0 ? '−' + Math.abs(n) : '0'; }
+function tone(n) { return n > 0 ? '#8EE3B0' : n < 0 ? '#FFB4A2' : '#F4F0E6'; }
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { tab: 'board' };
+  }
+  renderVals() {
+    const tab = this.state.tab;
+    const totals = Object.keys(GAMES).map((name) => ({ name, total: GAMES[name].reduce((a, b) => a + b, 0) }));
+    const standings = totals.slice().sort((a, b) => b.total - a.total).map((p, i) => ({
+      place: i + 1, name: p.name, total: signed(p.total), color: tone(p.total),
+      style: 'display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 12px; ' +
+        (i === 0 ? 'background: rgba(242,181,68,0.16); border: 1px solid #F2B544;' : 'background: #145039; border: 1px solid #2C7158;'),
+    }));
+    const grid = totals.map((p) => ({
+      name: p.name, total: signed(p.total),
+      cells: GAMES[p.name].map((n) => ({ text: signed(n), color: tone(n) })),
+    }));
+    const tabChip = (key, label) => ({
+      label, selected: String(tab === key), pick: () => this.setState({ tab: key }),
+      style: 'height: 36px; padding: 0 14px; border-radius: 9px; border: none; font-size: 13px; font-weight: 700; cursor: pointer; ' +
+        (tab === key ? 'background: #F4F0E6; color: #0E3B2C;' : 'background: transparent; color: #F4F0E6;'),
+    });
+    const history = [
+      { date: '22/10', room: '2481', games: 3, winner: 'Bạn +40', reason: 'Đang chơi', mine: '+40', n: 40 },
+      { date: '20/10', room: '1907', games: 12, winner: 'Tuấn +240', reason: 'Chủ phòng đóng phòng', mine: '−60', n: -60 },
+      { date: '18/10', room: '5530', games: 7, winner: 'Lan +95', reason: 'Hết quỹ tạm dừng', mine: '+20', n: 20 },
+      { date: '15/10', room: '4402', games: 15, winner: 'Bạn +310', reason: 'Chủ phòng đóng phòng', mine: '+310', n: 310 },
+    ].map((h) => Object.assign(h, { color: tone(h.n) }));
+    const ended = this.props.ended ?? false;
+    return {
+      tabs: [tabChip('board', 'Bảng điểm phòng'), tabChip('history', 'Lịch sử trận')],
+      isBoard: tab === 'board', isHistory: tab === 'history',
+      standings, grid, history, ended,
+      backHref: ended ? 'Main.dc.html' : 'Table.dc.html',
+    };
+  }
+}
+</script>
+</body>
+</html>

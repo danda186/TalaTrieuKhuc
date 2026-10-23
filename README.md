@@ -7,6 +7,8 @@ Mobile app (Flutter) cho phép **4 người chơi kết nối cùng một phòng
 - [Luật chơi Tá lả — đặc tả cho app](docs/luat-choi-ta-la.md)
 - [Package luật chơi `ta_la_engine`](packages/ta_la_engine/README.md)
 - [Kiến trúc chơi online (đề xuất)](docs/kien-truc-online.md)
+- [Thiết kế giao diện](designs/README.md)
+- [Chuyển dự án sang máy cá nhân (tách BE / Mobile)](docs/chuyen-sang-may-ca-nhan.md)
 
 ## Lộ trình
 
