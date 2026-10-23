@@ -353,6 +353,10 @@ Tất cả các điểm luật đã được chốt.
    - **Khung đánh bài:** một khung chữ nhật phủ vùng chơi, nền giống **chiếu cói**: viền đỏ có
      chỉ kem, lòng chiếu màu cói có vân đan, hoa văn góc chữ L và mặt tròn chữ Thọ mờ ở giữa
      (sau nọc). Tên/điểm người chơi và bảng nút đặt trên các ô nền tối để dễ đọc.
+   - **Vị trí người chơi: 4 góc chiếu**, theo chiều đánh: bạn ở **góc dưới trái** (cạnh bài trên
+     tay), nhà kế tiếp **góc dưới phải**, nhà đối diện **góc trên phải**, nhà ngồi trước (người
+     mình ăn bài) **góc trên trái**. Mỗi góc có tên + tổng điểm, hàng bài đánh, phỏm đã hạ.
+     Nọc và lá vừa đánh ở giữa; bảng nút thao tác nằm ngang ở giữa cạnh dưới.
 1. **Nút "Xếp bài":** tự sắp bài trên tay theo thứ tự **tăng dần từ trái qua phải**, gom nhóm
    theo thứ tự **rác → cạ → phỏm** (phỏm nằm bên phải). Cách xếp phỏm dùng cách giảm được
    **nhiều điểm nhất** (mục 5.1).
