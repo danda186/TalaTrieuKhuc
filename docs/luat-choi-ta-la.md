@@ -356,12 +356,13 @@ Tất cả các điểm luật đã được chốt.
    - **Vị trí người chơi: 4 góc chiếu**, theo chiều đánh: bạn ở **góc dưới trái** (cạnh bài trên
      tay), nhà kế tiếp **góc dưới phải**, nhà đối diện **góc trên phải**, nhà ngồi trước (người
      mình ăn bài) **góc trên trái**. Mỗi góc có tên + tổng điểm và phỏm đã hạ.
-   - **Khung giữa:** nọc, lá vừa đánh và mặt chữ Thọ của chiếu nằm **chính giữa màn hình**
+   - **Khung giữa:** nọc và mặt chữ Thọ của chiếu nằm **chính giữa màn hình**
      (cả trên dưới lẫn trái phải), có một **khung nhỏ** bao quanh. Viền khung có **mũi tên chạy
      vòng** theo chiều đánh (tắt chuyển động khi máy bật giảm chuyển động).
    - **Bài đánh** của mỗi người không nằm dưới tên mà **đè lên giữa cạnh khung** phía người đó:
      bạn cạnh dưới, nhà kế tiếp cạnh phải, nhà đối diện cạnh trên, nhà ngồi trước cạnh trái
-     (cạnh trái/phải xếp dọc, gối nửa lá).
+     (cạnh trái/phải xếp dọc, gối nửa lá). **Lá vừa đánh** không hiện riêng cạnh nọc mà nằm
+     trên cùng hàng bài đánh của người đó, đè lên các lá trước; lá ăn được có viền đỏ nổi bật.
    - **Đồng hồ lượt** là vòng đếm ngược quanh ảnh đại diện của người đang đánh, kèm số giây.
    - Bảng nút thao tác nằm ngang ở giữa cạnh dưới, giữa bài trên tay và góc nhà kế tiếp.
 1. **Nút "Xếp bài":** tự sắp bài trên tay theo thứ tự **tăng dần từ trái qua phải**, gom nhóm
@@ -380,7 +381,7 @@ Tất cả các điểm luật đã được chốt.
    - Nút **"Gợi ý"** tự chọn sẵn phỏm (hoặc lá gửi / lá đánh) giảm được nhiều điểm nhất
      (ưu tiên không bị Móm); người chơi vẫn chỉnh được.
 3. **Đầu lượt:** hiển thị 2 nút **Ăn** (chỉ bật khi lá vừa đánh ăn được) và **Bốc**.
-   - **Nọc** (kèm số lá còn lại) và **lá vừa đánh** hiển thị **to, căn giữa màn hình**.
+   - **Nọc** (kèm số lá còn lại) hiển thị **to, căn giữa màn hình**.
 4. **Ù:**
    - Khi đủ điều kiện Ù (kể cả Ù khan / Ù khan tròn ngay sau chia), hiện nút
      **"Hạ bài báo Ù"**; người chơi bấm thì app tự hạ theo cách tối ưu và kết thúc ván.
