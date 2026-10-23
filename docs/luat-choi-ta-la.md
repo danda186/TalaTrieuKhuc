@@ -330,6 +330,9 @@ Tất cả các điểm luật đã được chốt.
 
 ## 11. Tạm dừng ván (pause)
 
+Bấm nút tạm dừng trên thanh trên cùng của bàn chơi sẽ mở **popup ngay trên màn hình đang chơi**
+(không chuyển sang màn hình khác); bàn bài mờ đi phía sau và không thao tác được cho tới khi tiếp tục.
+
 1. **Ai được pause:** bất kỳ người chơi nào trong phòng, vào bất cứ lúc nào trong ván
    (kể cả không phải lượt của mình). Khi ván đang pause thì không pause chồng được.
 2. **Khi pause:**
