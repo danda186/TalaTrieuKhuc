@@ -3,12 +3,14 @@ import 'package:ta_la_engine/src/game/game_action.dart';
 import 'package:ta_la_engine/src/game/game_engine.dart';
 import 'package:ta_la_engine/src/game/game_state.dart';
 import 'package:ta_la_engine/src/melds/arrangement.dart';
+import 'package:ta_la_engine/src/result.dart';
 
-/// Thao tác tự động khi người chơi hết giờ lượt.
+/// Thao tác tự động tiếp theo khi người chơi hết giờ lượt.
 ///
-/// Ưu tiên báo Ù nếu đủ điều kiện; đầu lượt thì bốc (hết nọc thì ăn); lượt
-/// thường đánh lá rác điểm cao nhất; lượt hạ thì hạ theo gợi ý tối ưu.
-/// `null` khi ván đã kết thúc.
+/// Luật hết giờ: **tự bốc** (không tự ăn; chỉ ăn khi nọc đã hết), rồi **đánh
+/// 1 lá không thuộc phỏm** trên tay. Không tự báo Ù. Ở lượt hạ bài thì tự hạ
+/// theo gợi ý tối ưu rồi đánh lá rác điểm cao nhất. `null` khi ván đã kết
+/// thúc.
 GameAction? autoAction(GameState state) {
   final seat = state.currentSeat;
   switch (state.phase) {
@@ -19,15 +21,32 @@ GameAction? autoAction(GameState state) {
       if (!canDraw && TaLaEngine.canEatNow(state, seat)) return EatCard(seat);
       return DrawCard(seat);
     case TurnPhase.discard:
-      if (TaLaEngine.canDeclareU(state, seat)) return DeclareU(seat);
       final mustLayEaten =
           state.hasLaidDown(seat) && state.unlaidEaten(seat).isNotEmpty;
       if (mustLayEaten) return _suggestedLayDown(state, seat);
       return DiscardCard(seat, autoDiscard(state, seat));
     case TurnPhase.layDown:
-      if (TaLaEngine.canDeclareU(state, seat)) return DeclareU(seat);
       return _suggestedLayDown(state, seat);
   }
+}
+
+/// Xử lý hết giờ lượt của người đang đánh: áp [autoAction] liên tiếp (bốc
+/// rồi đánh, hoặc hạ rồi đánh) cho tới khi lượt chuyển sang người khác hoặc
+/// ván kết thúc.
+GameResult playTimeout(GameState state) {
+  final seat = state.currentSeat;
+  var current = state;
+  while (!current.isOver && current.currentSeat == seat) {
+    final action = autoAction(current);
+    if (action == null) break;
+    switch (TaLaEngine.apply(current, action)) {
+      case Ok(:final value):
+        current = value;
+      case Err(:final failure):
+        return Err(failure);
+    }
+  }
+  return Ok(current);
 }
 
 LayDown _suggestedLayDown(GameState state, int seat) {
@@ -42,8 +61,9 @@ LayDown _suggestedLayDown(GameState state, int seat) {
   );
 }
 
-/// Lá nên đánh khi tự động: lá rác điểm cao nhất mà vẫn giữ được phỏm của
-/// các lá đã ăn.
+/// Lá đánh tự động: lá **không thuộc phỏm** (theo cách xếp giảm nhiều điểm
+/// nhất) có điểm cao nhất, và vẫn giữ được phỏm của các lá đã ăn. Chỉ khi mọi
+/// lá đều thuộc phỏm mới phải tách phỏm.
 PlayingCard autoDiscard(GameState state, int seat) {
   final hand = state.hands[seat];
   final locked = state.unlaidEaten(seat);

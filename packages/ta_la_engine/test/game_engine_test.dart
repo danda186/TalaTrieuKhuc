@@ -316,4 +316,61 @@ void main() {
       expect(s.netScore, [150, -50, -50, -50]);
     });
   });
+
+  group('Hết giờ lượt', () {
+    const transferHands = [
+      'AS 2S 3S 4S 6S 7S 8S 9S JS QS',
+      '5C AC 3C 4C 6C 8C 9C 10C QC',
+      '5S 5D 2D 3D 4D 6D 8D 9D AD',
+      'JH KC 9H 10H KS KD 2C 7D 3H',
+    ];
+
+    test('tự bốc rồi đánh 1 lá không thuộc phỏm, chuyển lượt', () {
+      var s = dealFrom(stackDeck(hands: transferHands));
+      s = play(s, [
+        DiscardCard(0, card('9S')),
+        const DrawCard(1),
+        DiscardCard(1, card('5C')),
+      ]);
+      // C ăn được 5♣ nhưng hết giờ thì chỉ bốc, không tự ăn.
+      expect(TaLaEngine.canEatNow(s, 2), isTrue);
+      final drawn = s.deck.first;
+      final before = [...s.hands[2], drawn];
+      final after = unwrap(playTimeout(s));
+      expect(after.currentSeat, 3);
+      expect(after.eaten[2], isEmpty);
+      expect(after.hands[2], hasLength(9));
+      final tossed = after.discards[2].single;
+      final melded = bestArrangement(before)!.melds.expand((m) => m.cards);
+      expect(melded, isNot(contains(tossed)));
+      final deadwood = bestArrangement(before)!.deadwood;
+      expect(tossed, deadwood.reduce((a, b) => a.compareTo(b) >= 0 ? a : b));
+    });
+
+    test('không tự báo Ù, đánh lá ngoài phỏm', () {
+      final s = dealFrom(
+        stackDeck(
+          hands: const [
+            '3S 4S 5S 7D 7C 7S 10H JH QH 2C',
+            '8S 9S 10S AC 3C 4D 6C 9H KH',
+            'JC QC KC 6H AS 2D 8H 10D JS',
+            '4H 5H 2S 6S 9C 3D KD 8C AH',
+          ],
+        ),
+      );
+      final after = unwrap(playTimeout(s));
+      expect(after.isOver, isFalse);
+      expect(after.discards[0], [card('2C')]);
+      expect(after.currentSeat, 1);
+    });
+
+    test('lượt hạ bài: tự hạ phỏm rồi đánh', () {
+      var s = _playToChot();
+      s = play(s, [const DrawCard(3)]);
+      expect(s.phase, TurnPhase.layDown);
+      final after = unwrap(playTimeout(s));
+      expect(after.isOver, isTrue);
+      expect(after.hasLaidDown(3), isTrue);
+    });
+  });
 }

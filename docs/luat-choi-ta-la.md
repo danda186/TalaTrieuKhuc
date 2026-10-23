@@ -278,7 +278,7 @@ Ghế: **A** (đi đầu, 10 lá) → **B** → **C** → **D**.
   - Theo dõi `soLaDaDanh[]`, người đánh đầu vòng, logic chuyển bài (mục 4.4).
   - Ghi nhận **ai ăn của ai, vòng mấy** để tính tiền ăn, ăn chốt và Ù đền.
 - **State machine ván:** `CHIA_BAI → (KIEM_TRA_U_KHAN) → LUOT[người]: CHON(ăn|bốc) → (U?) → (HA nếu vòng cuối) → DANH → … → KET_THUC → TINH_DIEM`.
-- **Hết giờ lượt:** tự động bốc + đánh lá rác điểm cao nhất; khi hạ tự xếp phỏm tối ưu.
+- **Hết giờ lượt:** xem mục 12.6 — engine có sẵn `playTimeout` (tự bốc rồi đánh lá ngoài phỏm).
 - **Tạm dừng (pause):** đồng hồ do **server** giữ (thời điểm pause, người pause, quỹ pause còn lại)
   để mọi client hiển thị giống nhau, không phụ thuộc giờ máy. Xem mục 11.
 - **Cấu hình phòng:** `base`, `tinhDiemAnCayThuong`, thời gian lượt, cùng các mục còn mở ở mục 10.
@@ -350,6 +350,9 @@ Tất cả các điểm luật đã được chốt.
 ## 12. Yêu cầu giao diện bàn chơi
 
 0. **Khổ màn hình:** thiết kế cho **iPhone 15 Pro Max xoay ngang (932 × 430 pt)**.
+   - **Khung đánh bài:** một khung chữ nhật phủ vùng chơi, nền giống **chiếu cói**: viền đỏ có
+     chỉ kem, lòng chiếu màu cói có vân đan, hoa văn góc chữ L và mặt tròn chữ Thọ mờ ở giữa
+     (sau nọc). Tên/điểm người chơi và bảng nút đặt trên các ô nền tối để dễ đọc.
 1. **Nút "Xếp bài":** tự sắp bài trên tay theo thứ tự **tăng dần từ trái qua phải**, gom nhóm
    theo thứ tự **rác → cạ → phỏm** (phỏm nằm bên phải). Cách xếp phỏm dùng cách giảm được
    **nhiều điểm nhất** (mục 5.1).
@@ -379,6 +382,12 @@ Tất cả các điểm luật đã được chốt.
      **bên dưới tổng điểm khoảng 3 giây** rồi ẩn. Trong lúc đang chơi không hiện điểm ván.
    - Khi ván kết thúc, người thắng chọn chiều đánh ván sau ngay trên bàn chơi rồi bấm
      **"Ván tiếp"**. Chi tiết từng ván xem ở màn **Bảng điểm**.
+
+6. **Hết giờ lượt** (mặc định 25 giây, có đồng hồ đếm ngược, đỏ khi còn ≤ 5 giây): nếu người
+   chơi không thao tác thì app **tự bốc** (không tự ăn; chỉ ăn khi nọc đã hết) rồi **đánh 1 lá
+   không thuộc phỏm** trên tay (lá rác điểm cao nhất, vẫn giữ phỏm có lá ăn). Không tự báo Ù.
+   Nếu đã bốc/ăn rồi mới hết giờ thì chỉ tự đánh. Ở lượt hạ bài thì tự hạ các phỏm theo cách
+   giảm nhiều điểm nhất rồi đánh lá rác điểm cao nhất.
 
 ---
 
