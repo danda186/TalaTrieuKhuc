@@ -366,6 +366,7 @@ Tất cả các điểm luật đã được chốt.
    - Nút **"Gợi ý"** tự chọn sẵn phỏm (hoặc lá gửi / lá đánh) giảm được nhiều điểm nhất
      (ưu tiên không bị Móm); người chơi vẫn chỉnh được.
 3. **Đầu lượt:** hiển thị 2 nút **Ăn** (chỉ bật khi lá vừa đánh ăn được) và **Bốc**.
+   - **Nọc** (kèm số lá còn lại) và **lá vừa đánh** hiển thị **to, căn giữa màn hình**.
 4. **Ù:**
    - Khi đủ điều kiện Ù (kể cả Ù khan / Ù khan tròn ngay sau chia), hiện nút
      **"Hạ bài báo Ù"**; người chơi bấm thì app tự hạ theo cách tối ưu và kết thúc ván.
