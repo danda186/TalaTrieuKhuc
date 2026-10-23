@@ -378,6 +378,8 @@ Bấm nút tạm dừng trên thanh trên cùng của bàn chơi sẽ mở **pop
    - **Lá đã ăn** của mỗi người hiện ở góc của họ, **cùng kích thước với lá đã đánh**, xếp
      **đủ từng lá, không gối lên nhau**, viền vàng để phân biệt.
    - **Đồng hồ lượt** là vòng đếm ngược quanh ảnh đại diện của người đang đánh, kèm số giây.
+   - **Người đang tới lượt** được làm nổi bật: ô tên của họ có **viền vàng phát sáng** (nhấp nháy
+     nhẹ; đứng yên khi máy bật giảm chuyển động).
    - Bảng nút thao tác nằm ngang ở giữa cạnh dưới, giữa bài trên tay và góc nhà kế tiếp.
 1. **Nút "Xếp bài":** tự sắp bài trên tay theo thứ tự **tăng dần từ trái qua phải**, gom nhóm
    theo thứ tự **rác → cạ → phỏm** (phỏm nằm bên phải). Cách xếp phỏm dùng cách giảm được
