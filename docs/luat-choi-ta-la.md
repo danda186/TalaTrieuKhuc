@@ -179,7 +179,9 @@ Có thể Ù **bất cứ lúc nào đến lượt** (sau khi bốc hoặc ăn),
 ### 7.1 Mức base (B)
 Khi tạo phòng, chủ phòng chọn:
 
-- **Mức base `B`** (VD: 5, 10, 20…). Mọi khoản điểm là **bội số của B**.
+- **Mức base `B`**: chủ phòng **tự nhập số** (chỉ nhận **số nguyên dương**, 1 – 999 999; không nhận số
+  thập phân, số âm, dấu phẩy/chấm). Mọi khoản điểm là **bội số của B**. Chưa nhập hợp lệ thì
+  không tạo được phòng.
 - **Tính điểm ăn cây thường**: Bật / Tắt.
 
 ### 7.2 Xếp hạng trong ván (khi không ai Ù)

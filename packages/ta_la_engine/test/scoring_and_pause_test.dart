@@ -15,6 +15,26 @@ void main() {
       expect(s.uAmountPerPlayer(UKind.noPairFull), 50);
     });
 
+    test('mức base nhập tay: chỉ số nguyên dương', () {
+      expect(RoomSettings.parseBase('5'), 5);
+      expect(RoomSettings.parseBase(' 12 '), 12);
+      expect(RoomSettings.parseBase('007'), 7);
+      for (final bad in [
+        '',
+        '0',
+        '-5',
+        '2.5',
+        '1,000',
+        '5đ',
+        'abc',
+        '1234567',
+      ]) {
+        expect(RoomSettings.parseBase(bad), isNull, reason: bad);
+      }
+      const s = RoomSettings(base: 7);
+      expect([1, 2, 3].map(s.rankAmount), [7, 14, 21]);
+    });
+
     test('B = 10 nhảy bậc tương ứng', () {
       const s = RoomSettings(base: 10);
       expect([1, 2, 3].map(s.rankAmount), [10, 20, 30]);
